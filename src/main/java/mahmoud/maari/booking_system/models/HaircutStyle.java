@@ -1,5 +1,8 @@
 package mahmoud.maari.booking_system.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,7 +16,6 @@ public class HaircutStyle {
 	private String haircutType;
 	private String description;
 	private double price;
-
 
 	public HaircutStyle(String haircutType, String description, double price) {
 		super();
@@ -61,6 +63,9 @@ public class HaircutStyle {
 	public int getId() {
 		return id;
 	}
+	
+
+
 
 	@Override
 	public int hashCode() {
@@ -69,6 +74,7 @@ public class HaircutStyle {
 		result = prime * result + id;
 		return result;
 	}
+	
 
 	@Override
 	public boolean equals(Object obj) {
@@ -82,6 +88,14 @@ public class HaircutStyle {
 		if (id != other.id)
 			return false;
 		return true;
+	}
+	public Boolean addClient(Client c) {
+		if(c.getHaircutStyle()!=null) {
+			throw new IllegalArgumentException();
+		}
+		List<Client> client =new ArrayList<>();
+		c.setHaircutStyle(this);
+		return client.add(c);
 	}
 
 }

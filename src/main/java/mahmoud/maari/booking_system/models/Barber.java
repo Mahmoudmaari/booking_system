@@ -14,63 +14,56 @@ import javax.persistence.OneToMany;
 @Entity
 public class Barber {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String name;
-	private double rate;
 	private String phoneNaumber;
-	
-	@OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH},
-			fetch= FetchType.LAZY)
+
+	@OneToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
+			CascadeType.REFRESH }, fetch = FetchType.EAGER)
 	private List<Client> client = new ArrayList<>();
-	
-	
-	
-	public Barber(String name, double rate, String phoneNaumber) {
+
+
+
+	public Barber(String name, String phoneNaumber) {
 		super();
 		this.name = name;
-		this.rate = rate;
 		this.phoneNaumber = phoneNaumber;
-		
 	}
-	
-	public Barber() {}
-	
-	
+
+	public Barber() {
+	}
+
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	public double getRate() {
-		return rate;
-	}
-	public void setRate(double rate) {
-		this.rate = rate;
-	}
+
 	public String getPhoneNaumber() {
 		return phoneNaumber;
 	}
+
 	public void setPhoneNaumber(String phoneNaumber) {
 		this.phoneNaumber = phoneNaumber;
 	}
+
 	public int getId() {
 		return id;
 	}
 
-	
-	
-	public Boolean addClient(Client c) {
-		if(c.getBarber()!=null) {
+	public boolean addClient(Client c) {
+		if (c.getBarber() != null) {
 			throw new IllegalArgumentException();
 		}
 		c.setBarber(this);
 		return client.add(c);
-		
+
 	}
 
-	
 	public List<Client> getClient() {
 		return client;
 	}
@@ -78,10 +71,6 @@ public class Barber {
 	public void setClient(List<Client> client) {
 		this.client = client;
 	}
-
-	
-
-	
 
 	@Override
 	public int hashCode() {
@@ -91,12 +80,9 @@ public class Barber {
 		return result;
 	}
 
-	
-
 	@Override
 	public String toString() {
-		return "Barber [id=" + id + ", name=" + name + ", rate=" + rate + ", phoneNaumber=" + phoneNaumber + ", client="
-				+ client + "]";
+		return "Barber [id=" + id + ", name=" + name + ", phoneNaumber=" + phoneNaumber + ", client=" + client + "]";
 	}
 
 	@Override
@@ -112,6 +98,5 @@ public class Barber {
 			return false;
 		return true;
 	}
-
 
 }

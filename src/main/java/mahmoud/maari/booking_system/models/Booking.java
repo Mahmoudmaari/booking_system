@@ -2,39 +2,31 @@ package mahmoud.maari.booking_system.models;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 @Entity
 public class Booking {
 	@Override
 	public String toString() {
-		return "Booking [id=" + id + ", bookingDate=" + bookingDate + ", Bookningtime=" + Bookningtime + "]";
+		return "Booking [id=" + id + ", bookingDate=" + bookingDate + ", Bookningtime=" + bookingTime + "]";
 	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private LocalDate bookingDate;
-	private LocalTime Bookningtime;
-	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
-			CascadeType.REFRESH }, fetch = FetchType.EAGER)
-	private Barber barber;
-	@OneToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
-			CascadeType.REFRESH }, fetch = FetchType.EAGER,mappedBy="booking")
-	private Client client;
+	private LocalTime bookingTime;
 
 	public Booking(LocalDate bookingDate, LocalTime bookningtime) {
 		super();
 		this.bookingDate = bookingDate;
-		Bookningtime = bookningtime;
+		bookingTime = bookningtime;
 	}
 	
 	public Booking() {} 
@@ -48,28 +40,14 @@ public class Booking {
 	}
 
 	public LocalTime getBookningtime() {
-		return Bookningtime;
+		return bookingTime;
 	}
 
 	public void setBookningtime(LocalTime bookningtime) {
-		Bookningtime = bookningtime;
+		bookingTime = bookningtime;
 	}
 
-	public Barber getBarber() {
-		return barber;
-	}
 
-	public void setBarber(Barber barber) {
-		this.barber = barber;
-	}
-
-	public Client getClient() {
-		return client;
-	}
-
-	public void setClient(Client client) {
-		this.client = client;
-	}
 
 	public int getId() {
 		return id;
@@ -79,8 +57,7 @@ public class Booking {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((Bookningtime == null) ? 0 : Bookningtime.hashCode());
-		result = prime * result + ((bookingDate == null) ? 0 : bookingDate.hashCode());
+		result = prime * result + ((bookingTime == null) ? 0 : bookingTime.hashCode());
 		result = prime * result + id;
 		return result;
 	}
@@ -94,19 +71,19 @@ public class Booking {
 		if (getClass() != obj.getClass())
 			return false;
 		Booking other = (Booking) obj;
-		if (Bookningtime == null) {
-			if (other.Bookningtime != null)
+		if (bookingTime == null) {
+			if (other.bookingTime != null)
 				return false;
-		} else if (!Bookningtime.equals(other.Bookningtime))
-			return false;
-		if (bookingDate == null) {
-			if (other.bookingDate != null)
-				return false;
-		} else if (!bookingDate.equals(other.bookingDate))
+		} else if (!bookingTime.equals(other.bookingTime))
 			return false;
 		if (id != other.id)
 			return false;
 		return true;
+	}
+	public Boolean addClient(Client c) {
+		List<Client> client= new ArrayList<>();
+		c.setBooking(this);
+		return client.add(c);
 	}
 
 }
