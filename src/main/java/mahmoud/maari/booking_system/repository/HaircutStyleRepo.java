@@ -8,6 +8,6 @@ import mahmoud.maari.booking_system.models.HaircutStyle;
 
 public interface HaircutStyleRepo extends CrudRepository<HaircutStyle, Integer>{
 
-	List<HaircutStyle> findByhaircutTypeIgnoreCase(String name);
+	List<HaircutStyle> findByHaircutTypeIgnoreCase(String name);
 	
 }

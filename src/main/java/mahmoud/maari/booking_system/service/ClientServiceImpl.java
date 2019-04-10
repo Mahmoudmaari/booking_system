@@ -1,5 +1,6 @@
 package mahmoud.maari.booking_system.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import mahmoud.maari.booking_system.models.BarberRate;
 import mahmoud.maari.booking_system.models.Client;
 import mahmoud.maari.booking_system.repository.ClientRepo;
 
@@ -64,4 +66,15 @@ public class ClientServiceImpl implements ClientService {
 		return clientRepo.save(client);
 	}
 	
+	@Override
+	public boolean takeRateFromClient(Client c,BarberRate r) {
+		List<BarberRate> rate = new ArrayList<>();
+		if(findById(c.getId()).equals(r.getClient())){
+			throw new IllegalArgumentException();
+		}
+		r.setClient(findById(c.getId()));
+		return rate.add(r);
+	}
+	
+
 }

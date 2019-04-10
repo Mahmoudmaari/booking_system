@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -21,6 +20,14 @@ import mahmoud.maari.booking_system.repository.BarberRepo;
 import mahmoud.maari.booking_system.repository.BookingRepo;
 import mahmoud.maari.booking_system.repository.ClientRepo;
 import mahmoud.maari.booking_system.repository.HaircutStyleRepo;
+import mahmoud.maari.booking_system.service.BarberServiceImpl;
+import mahmoud.maari.booking_system.service.BookingService;
+import mahmoud.maari.booking_system.service.BookingServiceImpl;
+import mahmoud.maari.booking_system.service.ClientService;
+import mahmoud.maari.booking_system.service.ClientServiceImpl;
+import mahmoud.maari.booking_system.service.HaircutStyleService;
+import mahmoud.maari.booking_system.service.HaircutStyleServiceImpl;
+import mahmoud.maari.booking_system.service.barberService;
 
 @Component
 @Transactional(rollbackFor = Exception.class)
@@ -44,31 +51,60 @@ public class CommandLine implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+		barberService barberSV = new BarberServiceImpl(barberRepo);
+		BookingService bookingSV = new BookingServiceImpl(bookingRepo);
+		HaircutStyleService haircutSV= new HaircutStyleServiceImpl(haircutRepo);
+		ClientService clientSV= new ClientServiceImpl(clientRepo);
 		Barber barber = new Barber("Barber1", "079-xxxxxxx");
 		Barber barber2 = new Barber("Barber2", "079-xxxxxxx");
 		Client client1 = new Client("Client1", LocalDate.parse("1995-09-14"), "male", "079-xxxxxxx",
 				"client1@clientmail.com", "1234");
 		Client client2 = new Client("Client2", LocalDate.parse("2000-05-20"), "female", "079-xxxxxxx",
 				"Client1@gmail.com", "1234");
-		Booking booking1 = new Booking(LocalDate.now(), LocalTime.now());
+		Booking booking1 = new Booking(LocalDate.now(), LocalTime.parse("15:14"));
 		Booking booking2 = new Booking(LocalDate.now(), LocalTime.now());
 		HaircutStyle haircut1 = new HaircutStyle("Normal", "Normal haircut", 250);
 		HaircutStyle haircut2 = new HaircutStyle("Zero", "Zero haircit", 200);
+		List<BigDecimal> r1 = new ArrayList<>();
+		r1.add(new BigDecimal(4.5));
+		r1.add(new BigDecimal(4.0));
+		r1.add(new BigDecimal(3.0));
+		r1.add(new BigDecimal(5.0));
+		r1.add(new BigDecimal(5.0));
+		r1.add(new BigDecimal(4.5));
+		r1.add(new BigDecimal(4.5));
+		r1.add(new BigDecimal(4.5));
+		r1.add(new BigDecimal(4.5));
+		r1.add(new BigDecimal(4.5));
+		r1.add(new BigDecimal(4.5));
+		r1.add(new BigDecimal(4.0));
+		r1.add(new BigDecimal(4.0));
+		r1.add(new BigDecimal(3.0));
+		r1.add(new BigDecimal(3.0));
+		r1.add(new BigDecimal(3.0));
+		r1.add(new BigDecimal(3.0));
+		r1.add(new BigDecimal(3.0));
+		BarberRate rate = new BarberRate(r1, new BigDecimal(0));
 		List<BigDecimal> r = new ArrayList<>();
 		r.add(new BigDecimal(4.5));
-		r.add(new BigDecimal(4.9));
 		r.add(new BigDecimal(4.0));
-		r.add(new BigDecimal(3.5));
+		r.add(new BigDecimal(3.0));
 		r.add(new BigDecimal(5.0));
-
-		BarberRate rate = new BarberRate(r, new BigDecimal(0));
-		rate.RateCal(r);
-		barber.addClient(client1);
-		barber.addClient(client2);
-		booking1.addClient(client1);
-		booking1.addClient(client2);
-		haircut1.addClient(client1);
-		haircut1.addClient(client2);
+		r.add(new BigDecimal(5.0));
+		r.add(new BigDecimal(4.5));
+		r.add(new BigDecimal(4.5));
+		r.add(new BigDecimal(4.5));
+		r.add(new BigDecimal(4.5));
+		r.add(new BigDecimal(4.5));
+		r.add(new BigDecimal(4.5));
+		r.add(new BigDecimal(4.0));
+		r.add(new BigDecimal(4.0));
+		r.add(new BigDecimal(3.0));
+		r.add(new BigDecimal(3.0));
+		r.add(new BigDecimal(3.0));
+		r.add(new BigDecimal(3.0));
+		r.add(new BigDecimal(3.0));
+		BarberRate rate1 = new BarberRate(r, new BigDecimal(0));
 		barberRepo.save(barber);
 		barberRepo.save(barber2);
 		clientRepo.save(client1);
@@ -78,8 +114,19 @@ public class CommandLine implements CommandLineRunner {
 		haircutRepo.save(haircut1);
 		haircutRepo.save(haircut2);
 		rateRepo.save(rate);
+		rateRepo.save(rate1);
+		barberSV.addBarberToClient(client1,barber);
+		barberSV.addBarberToClient(client2,barber2);
+		bookingSV.addBookingToClient(booking1, client1);
+		bookingSV.addBookingToClient(booking2, client2);
+		haircutSV.addHaircutTOclient(haircut1, client1);
+		haircutSV.addHaircutTOclient(haircut1, client2);
+		rate.RateCal(r1);
 		System.out.println(rate.getOldRate()+"  "+rate.getRateResult());
-
+		clientSV.takeRateFromClient(client1, rate);
+		clientSV.takeRateFromClient(client2, rate1);
+		barberSV.addRateToBarber(barber, rate);
+		barberSV.addRateToBarber(barber2, rate1);
 	}
 
 }

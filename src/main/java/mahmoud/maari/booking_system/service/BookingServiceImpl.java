@@ -1,5 +1,7 @@
 package mahmoud.maari.booking_system.service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import mahmoud.maari.booking_system.models.Booking;
+import mahmoud.maari.booking_system.models.Client;
 import mahmoud.maari.booking_system.repository.BookingRepo;
 
 @Service
@@ -15,7 +18,7 @@ import mahmoud.maari.booking_system.repository.BookingRepo;
 public class BookingServiceImpl implements BookingService {
 
 	private BookingRepo bookingRepo;
-
+	
 	
 	@Autowired
 	public BookingServiceImpl(BookingRepo bookingRepo) {
@@ -41,13 +44,10 @@ public class BookingServiceImpl implements BookingService {
 		return (List<Booking>) bookingRepo.findAll();
 		
 	}
-//	/* (non-Javadoc)
-//	 * @see mahmoud.maari.booking_system.service.BookingService#findByName(java.lang.String)
-//	 */
-//	@Override
-//	public List<Booking> findByName(String name){
-//		return bookingRepo.findByNameIgnoreCase(name);
-//	}
+	@Override
+	public List<Booking> findBookingByDate(LocalDate date){
+		return bookingRepo.findBybookingDate(date);
+	}
 	/* (non-Javadoc)
 	 * @see mahmoud.maari.booking_system.service.BookingService#removeBooking(int)
 	 */
@@ -63,5 +63,15 @@ public class BookingServiceImpl implements BookingService {
 	@Override
 	public Booking save(Booking booking) {
 		return bookingRepo.save(booking);
+	}
+	@Override
+	public boolean addBookingToClient(Booking b,Client c) {
+		List<Booking> booking = new ArrayList<>();
+
+		if(findById(b.getId()).equals(c.getBooking())) {
+			throw new IllegalArgumentException();
+		}
+		c.setBooking(b);
+		return booking.add(b);
 	}
 }

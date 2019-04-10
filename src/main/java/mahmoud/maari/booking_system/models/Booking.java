@@ -23,6 +23,7 @@ public class Booking {
 	private LocalDate bookingDate;
 	private LocalTime bookingTime;
 
+	
 	public Booking(LocalDate bookingDate, LocalTime bookningtime) {
 		super();
 		this.bookingDate = bookingDate;
@@ -82,6 +83,9 @@ public class Booking {
 	}
 	public Boolean addClient(Client c) {
 		List<Client> client= new ArrayList<>();
+		if(c.getBooking()!=null) {
+			throw new IllegalArgumentException();
+		}
 		c.setBooking(this);
 		return client.add(c);
 	}

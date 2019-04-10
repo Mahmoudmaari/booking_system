@@ -12,6 +12,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
+
+
 
 @Entity
 public class BarberRate {
@@ -19,7 +22,7 @@ public class BarberRate {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-
+	@Transient
 	private double oldRate;
 	@ElementCollection(targetClass=BigDecimal.class)
 	private List<BigDecimal> starRate;
@@ -115,7 +118,7 @@ public class BarberRate {
 
 		starRate.forEach(s -> oldRate += s.doubleValue());
 		oldRate /= starRate.size();
-		RateResult = new BigDecimal(oldRate).setScale(2, RoundingMode.DOWN);
+		RateResult = new BigDecimal(oldRate).setScale(1, RoundingMode.DOWN);
 		return RateResult;
 	}
 	

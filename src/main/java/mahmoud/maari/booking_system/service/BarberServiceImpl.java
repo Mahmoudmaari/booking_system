@@ -1,5 +1,6 @@
 package mahmoud.maari.booking_system.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import mahmoud.maari.booking_system.models.Barber;
+import mahmoud.maari.booking_system.models.BarberRate;
+import mahmoud.maari.booking_system.models.Client;
 import mahmoud.maari.booking_system.repository.BarberRepo;
 
 @Service
@@ -66,4 +69,22 @@ public class BarberServiceImpl implements barberService {
 		return barberRepo.save(barber);
 	}
 	
+	@Override
+	public boolean addBarberToClient(Client c,Barber b) {
+		List<Client> client = new ArrayList<>();
+		if(findById(b.getId()).equals(c.getBarber())) {
+			throw new IllegalArgumentException();
+		}
+		c.setBarber(findById(b.getId()));
+		return client.add(c);
+	}
+	@Override
+	public boolean addRateToBarber(Barber b , BarberRate r) {
+		List<BarberRate> rate= new ArrayList<>();
+		if(findById(b.getId()).equals(r.getBarber())) {
+			throw new IllegalArgumentException();
+		}
+		r.setBarber(findById(b.getId()));
+		return rate.add(r);
+	}
 }
