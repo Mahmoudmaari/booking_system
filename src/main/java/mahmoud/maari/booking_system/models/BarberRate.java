@@ -111,7 +111,8 @@ public class BarberRate {
 
 	@Override
 	public String toString() {
-		return "BarberRate [id=" + id + ", starRate=" + starRate + ", RateResult=" + RateResult + "]";
+		return "BarberRate [id=" + id + ", oldRate=" + oldRate + ", starRate=" + starRate + ", RateResult=" + RateResult
+				+ ", barber=" + barber + ", client=" + client + "]";
 	}
 
 	public BigDecimal RateCal(List<BigDecimal> starRate) {

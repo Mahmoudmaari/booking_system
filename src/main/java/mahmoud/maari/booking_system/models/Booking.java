@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.springframework.web.bind.annotation.GetMapping;
+
 @Entity
 public class Booking {
 	@Override
@@ -80,14 +82,5 @@ public class Booking {
 		if (id != other.id)
 			return false;
 		return true;
-	}
-	public Boolean addClient(Client c) {
-		List<Client> client= new ArrayList<>();
-		if(c.getBooking()!=null) {
-			throw new IllegalArgumentException();
-		}
-		c.setBooking(this);
-		return client.add(c);
-	}
-
+	}	
 }

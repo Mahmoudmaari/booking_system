@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,7 +16,7 @@ import mahmoud.maari.booking_system.repository.BarberRepo;
 
 @Service
 @Transactional
-public class BarberServiceImpl implements barberService {
+public class BarberServiceImpl implements BarberService {
 
 	
 	private BarberRepo barberRepo;
@@ -40,7 +41,7 @@ public class BarberServiceImpl implements barberService {
 	 * @see mahmoud.maari.booking_system.service.barberService#findall()
 	 */
 	@Override
-	public List<Barber> findall() {
+	public List<Barber> findAll() {
 		return (List<Barber>) barberRepo.findAll();
 	}
 	
@@ -57,9 +58,9 @@ public class BarberServiceImpl implements barberService {
 	 * @see mahmoud.maari.booking_system.service.barberService#removeProduct(int)
 	 */
 	@Override
-	public boolean removeBarber(int id) {
-		barberRepo.deleteById(id);
-		return barberRepo.existsById(id);
+	public boolean removeBarber(Barber barber) {
+		 barberRepo.delete(barber);
+		return barberRepo.existsById(barber.getId());
 	}
 	/* (non-Javadoc)
 	 * @see mahmoud.maari.booking_system.service.barberService#save(mahmoud.maari.booking_system.models.Barber)

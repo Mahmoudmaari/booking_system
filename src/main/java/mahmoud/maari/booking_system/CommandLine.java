@@ -20,6 +20,8 @@ import mahmoud.maari.booking_system.repository.BarberRepo;
 import mahmoud.maari.booking_system.repository.BookingRepo;
 import mahmoud.maari.booking_system.repository.ClientRepo;
 import mahmoud.maari.booking_system.repository.HaircutStyleRepo;
+import mahmoud.maari.booking_system.service.BarberRateService;
+import mahmoud.maari.booking_system.service.BarberRateServiceImpl;
 import mahmoud.maari.booking_system.service.BarberServiceImpl;
 import mahmoud.maari.booking_system.service.BookingService;
 import mahmoud.maari.booking_system.service.BookingServiceImpl;
@@ -27,7 +29,7 @@ import mahmoud.maari.booking_system.service.ClientService;
 import mahmoud.maari.booking_system.service.ClientServiceImpl;
 import mahmoud.maari.booking_system.service.HaircutStyleService;
 import mahmoud.maari.booking_system.service.HaircutStyleServiceImpl;
-import mahmoud.maari.booking_system.service.barberService;
+import mahmoud.maari.booking_system.service.BarberService;
 
 @Component
 @Transactional(rollbackFor = Exception.class)
@@ -51,10 +53,11 @@ public class CommandLine implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		barberService barberSV = new BarberServiceImpl(barberRepo);
+		BarberService barberSV = new BarberServiceImpl(barberRepo);
 		BookingService bookingSV = new BookingServiceImpl(bookingRepo);
 		HaircutStyleService haircutSV= new HaircutStyleServiceImpl(haircutRepo);
 		ClientService clientSV= new ClientServiceImpl(clientRepo);
+		BarberRateService rateSV = new BarberRateServiceImpl(rateRepo);
 		Barber barber = new Barber("Barber1", "079-xxxxxxx");
 		Barber barber2 = new Barber("Barber2", "079-xxxxxxx");
 		Client client1 = new Client("Client1", LocalDate.parse("1995-09-14"), "male", "079-xxxxxxx",
@@ -122,11 +125,23 @@ public class CommandLine implements CommandLineRunner {
 		haircutSV.addHaircutTOclient(haircut1, client1);
 		haircutSV.addHaircutTOclient(haircut1, client2);
 		rate.RateCal(r1);
+		rate1.RateCal(r);
 		System.out.println(rate.getOldRate()+"  "+rate.getRateResult());
 		clientSV.takeRateFromClient(client1, rate);
 		clientSV.takeRateFromClient(client2, rate1);
 		barberSV.addRateToBarber(barber, rate);
 		barberSV.addRateToBarber(barber2, rate1);
+		barberSV.findAll().forEach(System.out::println);
+		clientSV.findAll().forEach(System.out::println);
+		bookingSV.findAll().forEach(System.out::println);
+		haircutSV.findAll().forEach(System.out::println);
+		rateSV.findAll().forEach(System.out::println);
+		Booking booking3= new Booking(LocalDate.now(), LocalTime.now());
+		bookingSV.save(booking3);
+		clientSV.removeClinet(1);
+		bookingSV.removec(booking1, client1);
+		System.out.println(bookingSV.removeBooking(1));
+		clientSV.findAll().forEach(System.out::println);
 	}
 
 }

@@ -32,7 +32,7 @@ import mahmoud.maari.booking_system.service.ClientService;
 import mahmoud.maari.booking_system.service.ClientServiceImpl;
 import mahmoud.maari.booking_system.service.HaircutStyleService;
 import mahmoud.maari.booking_system.service.HaircutStyleServiceImpl;
-import mahmoud.maari.booking_system.service.barberService;
+import mahmoud.maari.booking_system.service.BarberService;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -177,7 +177,7 @@ public class BookingSystemRepoTest {
 
 	@Test
 	public void addBarberToClientTest() {
-		barberService barberSV = new BarberServiceImpl(barberRepo);
+		BarberService barberSV = new BarberServiceImpl(barberRepo);
 		assertTrue(barberSV.addBarberToClient(client1, barber1));
 	}
 
@@ -201,7 +201,7 @@ public class BookingSystemRepoTest {
 
 	@Test
 	public void addRateToBarberTest() {
-		barberService barberSV = new BarberServiceImpl(barberRepo);
+		BarberService barberSV = new BarberServiceImpl(barberRepo);
 		assertTrue(barberSV.addRateToBarber(barber1, Rate1));
 	}
 

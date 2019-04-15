@@ -74,4 +74,13 @@ public class BookingServiceImpl implements BookingService {
 		c.setBooking(b);
 		return booking.add(b);
 	}
+	@Override
+	public boolean removec(Booking b,Client c) {
+		List<Booking> booking = new ArrayList<>();
+
+	
+		c.setBooking(b=null);
+		return booking.add(b);
+	}
+	
 }

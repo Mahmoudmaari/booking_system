@@ -20,4 +20,6 @@ public interface BookingService {
 
 	boolean addBookingToClient(Booking b, Client c);
 
+	boolean removec(Booking b, Client c);
+
 }

@@ -84,7 +84,7 @@ public class Client {
 	public Barber getBarber() {
 		return barber;
 	}
-
+ 
 	public void setBarber(Barber barber) {
 		this.barber = barber;
 	}
@@ -136,7 +136,8 @@ public class Client {
 	@Override
 	public String toString() {
 		return "Client [id=" + id + ", clientName=" + clientName + ", birthDate=" + birthDate + ", gender=" + gender
-				+ ", phoneNumber=" + phoneNumber + ", email=" + email + ", password=" + password + "]";
+				+ ", phoneNumber=" + phoneNumber + ", email=" + email + ", password=" + password + ", barber=" + barber
+				+ ", booking=" + booking + ", haircutStyle=" + haircutStyle + "]";
 	}
 
 	@Override

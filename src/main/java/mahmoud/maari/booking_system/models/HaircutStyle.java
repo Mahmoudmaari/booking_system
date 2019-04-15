@@ -89,13 +89,4 @@ public class HaircutStyle {
 			return false;
 		return true;
 	}
-	public Boolean addClient(Client c) {
-		if(c.getHaircutStyle()!=null) {
-			throw new IllegalArgumentException();
-		}
-		List<Client> client =new ArrayList<>();
-		c.setHaircutStyle(this);
-		return client.add(c);
-	}
-
 }
