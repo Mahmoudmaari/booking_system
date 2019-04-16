@@ -55,12 +55,15 @@ public class BarberController {
 	}
 	@GetMapping("/Barber/{id}")
 	public ResponseEntity<Barber> findById(@PathVariable int id ){
+		if(barberSV.findById(id)== null) {
+			ResponseEntity.notFound().build();
+		}
 	return ResponseEntity.ok().body(barberSV.findById(id));	
 	}
 	@PutMapping("/Barber/{id}")
 	public ResponseEntity<Barber> update (@PathVariable int id,@Valid @RequestBody BarberForm newbarber){
 		if(barberSV.findById(id)==null) {
-			return ResponseEntity.badRequest().build();
+			return ResponseEntity.notFound().build();
 		}else {
 			Barber barber = barberSV.findById(id);
 			barber.setName(newbarber.getName());

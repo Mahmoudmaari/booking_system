@@ -2,7 +2,6 @@ package mahmoud.maari.booking_system.controller;
 
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import mahmoud.maari.booking_system.form.BookingForm;
-import mahmoud.maari.booking_system.models.Barber;
 import mahmoud.maari.booking_system.models.Booking;
 import mahmoud.maari.booking_system.service.BookingService;
 
@@ -50,12 +48,15 @@ public class BookingController {
 	}
 	@GetMapping("/Booking/{id}")
 	public ResponseEntity<Booking> findById(@PathVariable int id, @Valid @RequestBody Booking booking){
+		if(bookingSV.findById(id)==null) {
+			ResponseEntity.notFound().build();
+		}
 		return ResponseEntity.ok().body(bookingSV.findById(id));
 	}
 	@PutMapping("/Booking/{id}")
 	public ResponseEntity<Booking> update(@PathVariable int id,@Valid @RequestBody BookingForm newBooking){
 		if(bookingSV.findById(id)== null) {
-			ResponseEntity.badRequest().build();
+			ResponseEntity.notFound().build();
 		}
 		Booking booking = bookingSV.findById(id);
 		booking.setBookingDate(newBooking.getBookingDate());
