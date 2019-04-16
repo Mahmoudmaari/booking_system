@@ -9,5 +9,4 @@ import mahmoud.maari.booking_system.models.Barber;
 public interface BarberRepo extends CrudRepository<Barber, Integer> {
 
 	List<Barber> findByNameIgnoreCase(String name);
-	
 }

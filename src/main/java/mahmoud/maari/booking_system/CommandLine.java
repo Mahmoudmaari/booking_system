@@ -58,14 +58,14 @@ public class CommandLine implements CommandLineRunner {
 		HaircutStyleService haircutSV= new HaircutStyleServiceImpl(haircutRepo);
 		ClientService clientSV= new ClientServiceImpl(clientRepo);
 		BarberRateService rateSV = new BarberRateServiceImpl(rateRepo);
-		Barber barber = new Barber("Barber1", "079-xxxxxxx");
-		Barber barber2 = new Barber("Barber2", "079-xxxxxxx");
+		Barber barber = new Barber("Barber1", "079-xxxxxxx",true);
+		Barber barber2 = new Barber("Barber2", "079-xxxxxxx",true);
 		Client client1 = new Client("Client1", LocalDate.parse("1995-09-14"), "male", "079-xxxxxxx",
 				"client1@clientmail.com", "1234");
 		Client client2 = new Client("Client2", LocalDate.parse("2000-05-20"), "female", "079-xxxxxxx",
 				"Client1@gmail.com", "1234");
-		Booking booking1 = new Booking(LocalDate.now(), LocalTime.parse("15:14"));
-		Booking booking2 = new Booking(LocalDate.now(), LocalTime.now());
+		Booking booking1 = new Booking(LocalDate.now(), LocalTime.parse("15:14"),true);
+		Booking booking2 = new Booking(LocalDate.now(), LocalTime.now(),true);
 		HaircutStyle haircut1 = new HaircutStyle("Normal", "Normal haircut", 250);
 		HaircutStyle haircut2 = new HaircutStyle("Zero", "Zero haircit", 200);
 		List<BigDecimal> r1 = new ArrayList<>();
@@ -136,7 +136,7 @@ public class CommandLine implements CommandLineRunner {
 		bookingSV.findAll().forEach(System.out::println);
 		haircutSV.findAll().forEach(System.out::println);
 		rateSV.findAll().forEach(System.out::println);
-		Booking booking3= new Booking(LocalDate.now(), LocalTime.now());
+		Booking booking3= new Booking(LocalDate.now(), LocalTime.now(),true);
 		bookingSV.save(booking3);
 		clientSV.removeClinet(1);
 		bookingSV.removec(booking1, client1);

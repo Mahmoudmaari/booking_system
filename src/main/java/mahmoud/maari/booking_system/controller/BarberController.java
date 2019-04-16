@@ -5,11 +5,9 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,10 +45,11 @@ public class BarberController {
 	}
 	@PostMapping("/Barber")
 	public ResponseEntity<Barber> create(@RequestBody BarberForm newBarber){
-		if(newBarber.getName() == null|| newBarber.getPhoneNaumber()==null) {
+		if(newBarber == null) {
 			return ResponseEntity.badRequest().build();
 		}else {
-		Barber barber = barberSV.save(new Barber(newBarber.getName(), newBarber.getPhoneNaumber()) );
+			
+		Barber barber = barberSV.save(new Barber(newBarber.getName(), newBarber.getPhoneNaumber(),newBarber.isAvailable() ));
 		return ResponseEntity.status(HttpStatus.CREATED).body(barber);
 		}	
 	}
@@ -60,13 +59,13 @@ public class BarberController {
 	}
 	@PutMapping("/Barber/{id}")
 	public ResponseEntity<Barber> update (@PathVariable int id,@Valid @RequestBody BarberForm newbarber){
-		if(id == 0) {
+		if(barberSV.findById(id)==null) {
 			return ResponseEntity.badRequest().build();
 		}else {
 			Barber barber = barberSV.findById(id);
 			barber.setName(newbarber.getName());
 			barber.setPhoneNaumber(newbarber.getPhoneNaumber());
-			
+			barber.setAvailable(newbarber.isAvailable());
 			return ResponseEntity.accepted().body(barberSV.save(barber));
 		}
 	}

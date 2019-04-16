@@ -67,10 +67,10 @@ public class BookingSystemRepoTest {
 		Client client = new Client("TestClient", LocalDate.parse("1995-09-14"), "male", "079-1234567", "test@test.com",
 				"1234567890");
 		clients.add(client);
-		Barber barber = new Barber("TestBarber", "079-0000000");
+		Barber barber = new Barber("TestBarber", "079-0000000",true);
 
 		HaircutStyle haircut = new HaircutStyle("Test", "test : test", 300);
-		Booking booking = new Booking(LocalDate.parse("2019-04-04"), LocalTime.parse("15:00:00"));
+		Booking booking = new Booking(LocalDate.parse("2019-04-04"), LocalTime.parse("15:00:00"),true);
 		List<BigDecimal> star = new ArrayList<>();
 		star.add(new BigDecimal(4.5));
 		star.add(new BigDecimal(4.7));

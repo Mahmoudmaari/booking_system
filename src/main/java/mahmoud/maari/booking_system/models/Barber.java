@@ -12,19 +12,32 @@ public class Barber {
 	private int id;
 	private String name;
 	private String phoneNaumber;
+	private boolean available;
 
 
 
 
-	public Barber(String name, String phoneNaumber) {
+
+
+	public Barber(String name, String phoneNaumber, boolean available) {
 		super();
 		this.name = name;
 		this.phoneNaumber = phoneNaumber;
+		this.available = available;
 	}
+
 
 	public Barber() {
 	}
 
+
+	public boolean isAvailable() {
+		return available;
+	}
+
+	public void setAvailable(boolean available) {
+		this.available = available;
+	}
 
 	public String getName() {
 		return name;

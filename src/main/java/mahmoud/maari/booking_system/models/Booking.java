@@ -24,16 +24,32 @@ public class Booking {
 	private int id;
 	private LocalDate bookingDate;
 	private LocalTime bookingTime;
+	private boolean booked;
 
 	
-	public Booking(LocalDate bookingDate, LocalTime bookningtime) {
+	
+	
+	public Booking(LocalDate bookingDate, LocalTime bookingTime, boolean booked) {
 		super();
 		this.bookingDate = bookingDate;
-		bookingTime = bookningtime;
+		this.bookingTime = bookingTime;
+		this.booked = booked;
 	}
-	
+
+
 	public Booking() {} 
 	
+	
+
+
+	public boolean isBooked() {
+		return booked;
+	}
+
+	public void setBooked(boolean booked) {
+		this.booked = booked;
+	}
+
 	public LocalDate getBookingDate() {
 		return bookingDate;
 	}
@@ -42,14 +58,17 @@ public class Booking {
 		this.bookingDate = bookingDate;
 	}
 
-	public LocalTime getBookningtime() {
+	
+
+
+	public LocalTime getBookingTime() {
 		return bookingTime;
 	}
 
-	public void setBookningtime(LocalTime bookningtime) {
-		bookingTime = bookningtime;
-	}
 
+	public void setBookingTime(LocalTime bookingTime) {
+		this.bookingTime = bookingTime;
+	}
 
 
 	public int getId() {

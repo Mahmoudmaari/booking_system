@@ -71,6 +71,7 @@ public class BookingServiceImpl implements BookingService {
 		if(findById(b.getId()).equals(c.getBooking())) {
 			throw new IllegalArgumentException();
 		}
+		
 		c.setBooking(b);
 		return booking.add(b);
 	}
