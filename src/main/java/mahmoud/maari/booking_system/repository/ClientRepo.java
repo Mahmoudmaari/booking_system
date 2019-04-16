@@ -4,12 +4,12 @@ import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
-import mahmoud.maari.booking_system.models.Client;
+import mahmoud.maari.booking_system.models.ClientC;
 
 
 
-public interface ClientRepo extends CrudRepository<Client, Integer>{
+public interface ClientRepo extends CrudRepository<ClientC, Integer>{
 
-	List<Client> findByclientNameIgnoreCase(String name);
+	List<ClientC> findByclientNameIgnoreCase(String name);
 	
 }

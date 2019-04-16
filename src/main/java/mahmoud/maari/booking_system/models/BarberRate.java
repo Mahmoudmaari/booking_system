@@ -32,7 +32,7 @@ public class BarberRate {
 	private Barber barber;
 	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
 			CascadeType.REFRESH }, fetch = FetchType.EAGER)
-	private Client client;
+	private ClientC client;
 
 	public BarberRate(List<BigDecimal> starRate, BigDecimal rateResult) {
 		super();
@@ -75,11 +75,11 @@ public class BarberRate {
 		this.barber = barber;
 	}
 
-	public Client getClient() {
+	public ClientC getClient() {
 		return client;
 	}
 
-	public void setClient(Client client) {
+	public void setClient(ClientC client) {
 		this.client = client;
 	}
 

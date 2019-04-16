@@ -3,20 +3,23 @@ package mahmoud.maari.booking_system.service;
 import java.util.List;
 
 import mahmoud.maari.booking_system.models.BarberRate;
-import mahmoud.maari.booking_system.models.Client;
+import mahmoud.maari.booking_system.models.Booking;
+import mahmoud.maari.booking_system.models.ClientC;
 
 public interface ClientService {
 
-	Client findById(int id);
+	ClientC findById(int id);
 
-	List<Client> findAll();
+	List<ClientC> findAll();
 
-	List<Client> findByName(String name);
+	List<ClientC> findByName(String name);
 
 	boolean removeClinet(int id);
 
-	Client save(Client client);
+	ClientC save(ClientC client);
 
-	boolean takeRateFromClient(Client c, BarberRate r);
+	boolean takeRateFromClient(ClientC c, BarberRate r);
+
+	boolean addBookingToClient(Booking b, ClientC c);
 
 }

@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import mahmoud.maari.booking_system.models.Booking;
-import mahmoud.maari.booking_system.models.Client;
+import mahmoud.maari.booking_system.models.ClientC;
 
 public interface BookingService {
 
@@ -18,8 +18,7 @@ public interface BookingService {
 
 	List<Booking> findBookingByDate(LocalDate date);
 
-	boolean addBookingToClient(Booking b, Client c);
 
-	boolean removec(Booking b, Client c);
+
 
 }

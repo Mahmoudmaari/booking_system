@@ -11,7 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import mahmoud.maari.booking_system.models.Barber;
 import mahmoud.maari.booking_system.models.BarberRate;
-import mahmoud.maari.booking_system.models.Client;
+import mahmoud.maari.booking_system.models.Booking;
+import mahmoud.maari.booking_system.models.ClientC;
 import mahmoud.maari.booking_system.repository.BarberRepo;
 
 @Service
@@ -71,13 +72,13 @@ public class BarberServiceImpl implements BarberService {
 	}
 	
 	@Override
-	public boolean addBarberToClient(Client c,Barber b) {
-		List<Client> client = new ArrayList<>();
-		if(findById(b.getId()).equals(c.getBarber())) {
+	public boolean addBarberToClient(Booking o,Barber b) {
+		List<Barber> barber = new ArrayList<>();
+		if(findById(b.getId()).equals(o.getBarber())) {
 			throw new IllegalArgumentException();
 		}
-		c.setBarber(findById(b.getId()));
-		return client.add(c);
+		o.setBarber(b);;
+		return barber.add(b);
 	}
 	@Override
 	public boolean addRateToBarber(Barber b , BarberRate r) {

@@ -2,7 +2,8 @@ package mahmoud.maari.booking_system.service;
 
 import java.util.List;
 
-import mahmoud.maari.booking_system.models.Client;
+import mahmoud.maari.booking_system.models.Booking;
+import mahmoud.maari.booking_system.models.ClientC;
 import mahmoud.maari.booking_system.models.HaircutStyle;
 
 public interface HaircutStyleService {
@@ -17,6 +18,6 @@ public interface HaircutStyleService {
 
 	HaircutStyle save(HaircutStyle haircutStyle);
 
-	boolean addHaircutTOclient(HaircutStyle h, Client c);
+	boolean addHaircutTOclient(HaircutStyle h, Booking b);
 
 }

@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import mahmoud.maari.booking_system.models.Barber;
 import mahmoud.maari.booking_system.models.BarberRate;
 import mahmoud.maari.booking_system.models.Booking;
-import mahmoud.maari.booking_system.models.Client;
+import mahmoud.maari.booking_system.models.ClientC;
 import mahmoud.maari.booking_system.models.HaircutStyle;
 import mahmoud.maari.booking_system.repository.BarberRateRepo;
 import mahmoud.maari.booking_system.repository.BarberRepo;
@@ -60,9 +60,9 @@ public class CommandLine implements CommandLineRunner {
 		BarberRateService rateSV = new BarberRateServiceImpl(rateRepo);
 		Barber barber = new Barber("Barber1", "079-xxxxxxx",true);
 		Barber barber2 = new Barber("Barber2", "079-xxxxxxx",true);
-		Client client1 = new Client("Client1", LocalDate.parse("1995-09-14"), "male", "079-xxxxxxx",
+		ClientC client1 = new ClientC("Client1", LocalDate.parse("1995-09-14"), "male", "079-xxxxxxx",
 				"client1@clientmail.com", "1234");
-		Client client2 = new Client("Client2", LocalDate.parse("2000-05-20"), "female", "079-xxxxxxx",
+		ClientC client2 = new ClientC("Client2", LocalDate.parse("2000-05-20"), "female", "079-xxxxxxx",
 				"Client1@gmail.com", "1234");
 		Booking booking1 = new Booking(LocalDate.now(), LocalTime.parse("15:14"),true);
 		Booking booking2 = new Booking(LocalDate.now(), LocalTime.now(),true);
@@ -118,12 +118,12 @@ public class CommandLine implements CommandLineRunner {
 		haircutRepo.save(haircut2);
 		rateRepo.save(rate);
 		rateRepo.save(rate1);
-		barberSV.addBarberToClient(client1,barber);
-		barberSV.addBarberToClient(client2,barber2);
-		bookingSV.addBookingToClient(booking1, client1);
-		bookingSV.addBookingToClient(booking2, client2);
-		haircutSV.addHaircutTOclient(haircut1, client1);
-		haircutSV.addHaircutTOclient(haircut1, client2);
+		barberSV.addBarberToClient(booking1,barber);
+		barberSV.addBarberToClient(booking2,barber2);
+		clientSV.addBookingToClient(booking1, client1);
+		clientSV.addBookingToClient(booking2, client2);
+		haircutSV.addHaircutTOclient(haircut1, booking1);
+		haircutSV.addHaircutTOclient(haircut1, booking2);
 		rate.RateCal(r1);
 		rate1.RateCal(r);
 		System.out.println(rate.getOldRate()+"  "+rate.getRateResult());
@@ -139,7 +139,6 @@ public class CommandLine implements CommandLineRunner {
 		Booking booking3= new Booking(LocalDate.now(), LocalTime.now(),true);
 		bookingSV.save(booking3);
 		clientSV.removeClinet(1);
-		bookingSV.removec(booking1, client1);
 		System.out.println(bookingSV.removeBooking(1));
 		clientSV.findAll().forEach(System.out::println);
 	}

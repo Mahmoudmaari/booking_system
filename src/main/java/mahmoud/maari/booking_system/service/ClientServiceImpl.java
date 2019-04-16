@@ -9,7 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import mahmoud.maari.booking_system.models.BarberRate;
-import mahmoud.maari.booking_system.models.Client;
+import mahmoud.maari.booking_system.models.Booking;
+import mahmoud.maari.booking_system.models.ClientC;
 import mahmoud.maari.booking_system.repository.ClientRepo;
 
 @Service
@@ -28,8 +29,8 @@ public class ClientServiceImpl implements ClientService {
 	 * @see mahmoud.maari.booking_system.service.ClientService#findById(int)
 	 */
 	@Override
-	public Client findById(int id) {
-		Optional<Client> result= clientRepo.findById(id);
+	public ClientC findById(int id) {
+		Optional<ClientC> result= clientRepo.findById(id);
 		
 		return result.orElseThrow(IllegalArgumentException::new);
 	}
@@ -38,15 +39,15 @@ public class ClientServiceImpl implements ClientService {
 	 * @see mahmoud.maari.booking_system.service.ClientService#findAll()
 	 */
 	@Override
-	public List<Client> findAll() {
-		return (List<Client>) clientRepo.findAll();
+	public List<ClientC> findAll() {
+		return (List<ClientC>) clientRepo.findAll();
 	}
 	
 	/* (non-Javadoc)
 	 * @see mahmoud.maari.booking_system.service.ClientService#findByName(java.lang.String)
 	 */
 	@Override
-	public List<Client> findByName(String name){
+	public List<ClientC> findByName(String name){
 		return clientRepo.findByclientNameIgnoreCase(name);
 	}
 	/* (non-Javadoc)
@@ -62,12 +63,12 @@ public class ClientServiceImpl implements ClientService {
 	 * @see mahmoud.maari.booking_system.service.ClientService#save(mahmoud.maari.booking_system.models.Client)
 	 */
 	@Override
-	public Client save(Client client) {
+	public ClientC save(ClientC client) {
 		return clientRepo.save(client);
 	}
 	
 	@Override
-	public boolean takeRateFromClient(Client c,BarberRate r) {
+	public boolean takeRateFromClient(ClientC c,BarberRate r) {
 		List<BarberRate> rate = new ArrayList<>();
 		if(findById(c.getId()).equals(r.getClient())){
 			throw new IllegalArgumentException();
@@ -76,5 +77,16 @@ public class ClientServiceImpl implements ClientService {
 		return rate.add(r);
 	}
 	
+	@Override
+	public boolean addBookingToClient(Booking b,ClientC c) {
+		List<Booking> booking = new ArrayList<>();
+
+		if(findById(c.getId()).equals(b.getClient())) {
+			throw new IllegalArgumentException();
+		}
+		b.setBooked(true);
+		b.setClient(c);
+		return booking.add(b);
+	}
 
 }

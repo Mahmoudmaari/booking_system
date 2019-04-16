@@ -4,7 +4,8 @@ import java.util.List;
 
 import mahmoud.maari.booking_system.models.Barber;
 import mahmoud.maari.booking_system.models.BarberRate;
-import mahmoud.maari.booking_system.models.Client;
+import mahmoud.maari.booking_system.models.Booking;
+import mahmoud.maari.booking_system.models.ClientC;
 
 public interface BarberService {
 
@@ -18,9 +19,9 @@ public interface BarberService {
 
 	Barber save(Barber barber);
 
-	boolean addBarberToClient(Client c,Barber b);
-
 	boolean addRateToBarber(Barber b, BarberRate r);
+
+	boolean addBarberToClient(Booking o, Barber b);
 
 	
 }

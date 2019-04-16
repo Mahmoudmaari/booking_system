@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.Email;
 
 @Entity
-public class Client {
+public class ClientC {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,17 +25,9 @@ public class Client {
 	private String email;
 	private String password;
 
-	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
-			CascadeType.REFRESH }, fetch = FetchType.EAGER)
-	private Barber barber;
-	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
-			CascadeType.REFRESH }, fetch = FetchType.EAGER)
-	private Booking booking;
-	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
-			CascadeType.REFRESH }, fetch = FetchType.LAZY)
-	private HaircutStyle haircutStyle;
 
-	public Client(String clientName, LocalDate birthDate, String gender, String phoneNumber, @Email String email,
+
+	public ClientC(String clientName, LocalDate birthDate, String gender, String phoneNumber, @Email String email,
 			String password) {
 		super();
 		this.clientName = clientName;
@@ -46,7 +38,7 @@ public class Client {
 		this.password = password;
 	}
 
-	public Client() {
+	public ClientC() {
 	}
 
 	public String getClientName() {
@@ -64,14 +56,9 @@ public class Client {
 	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
 	}
+	
 
-	public String getSex() {
-		return gender;
-	}
 
-	public void setSex(String sex) {
-		this.gender = sex;
-	}
 
 	public String getPhoneNumber() {
 		return phoneNumber;
@@ -81,36 +68,12 @@ public class Client {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public Barber getBarber() {
-		return barber;
-	}
- 
-	public void setBarber(Barber barber) {
-		this.barber = barber;
-	}
-
 	public String getEmail() {
 		return email;
 	}
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public Booking getBooking() {
-		return booking;
-	}
-
-	public Booking setBooking(Booking booking) {
-		return this.booking = booking;
-	}
-
-	public HaircutStyle getHaircutStyle() {
-		return haircutStyle;
-	}
-
-	public void setHaircutStyle(HaircutStyle haircutStyle) {
-		this.haircutStyle = haircutStyle;
 	}
 
 	public int getId() {
@@ -136,8 +99,7 @@ public class Client {
 	@Override
 	public String toString() {
 		return "Client [id=" + id + ", clientName=" + clientName + ", birthDate=" + birthDate + ", gender=" + gender
-				+ ", phoneNumber=" + phoneNumber + ", email=" + email + ", password=" + password + ", barber=" + barber
-				+ ", booking=" + booking + ", haircutStyle=" + haircutStyle + "]";
+				+ ", phoneNumber=" + phoneNumber + ", email=" + email + ", password=" + password +  "]";
 	}
 
 	@Override
@@ -157,7 +119,7 @@ public class Client {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Client other = (Client) obj;
+		ClientC other = (ClientC) obj;
 		if (email == null) {
 			if (other.email != null)
 				return false;

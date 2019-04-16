@@ -23,7 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import mahmoud.maari.booking_system.models.Barber;
 import mahmoud.maari.booking_system.models.BarberRate;
 import mahmoud.maari.booking_system.models.Booking;
-import mahmoud.maari.booking_system.models.Client;
+import mahmoud.maari.booking_system.models.ClientC;
 import mahmoud.maari.booking_system.models.HaircutStyle;
 import mahmoud.maari.booking_system.service.BarberServiceImpl;
 import mahmoud.maari.booking_system.service.BookingService;
@@ -50,7 +50,7 @@ public class BookingSystemRepoTest {
 	private BarberRateRepo RateRepo;
 
 	private Barber barber1;
-	private Client client1;
+	private ClientC client1;
 	private HaircutStyle haircut1;
 	private Booking booking1;
 	private BarberRate Rate1;
@@ -63,8 +63,8 @@ public class BookingSystemRepoTest {
 
 	@Before
 	public void init() {
-		List<Client> clients = new ArrayList<>();
-		Client client = new Client("TestClient", LocalDate.parse("1995-09-14"), "male", "079-1234567", "test@test.com",
+		List<ClientC> clients = new ArrayList<>();
+		ClientC client = new ClientC("TestClient", LocalDate.parse("1995-09-14"), "male", "079-1234567", "test@test.com",
 				"1234567890");
 		clients.add(client);
 		Barber barber = new Barber("TestBarber", "079-0000000",true);
@@ -99,7 +99,7 @@ public class BookingSystemRepoTest {
 
 	@Test
 	public void clientIsPresent_test() {
-		Optional<Client> expected = clientRepo.findById(clientId);
+		Optional<ClientC> expected = clientRepo.findById(clientId);
 		assertTrue(expected.isPresent());
 		assertEquals(expected.get(), client1);
 	}
@@ -136,8 +136,8 @@ public class BookingSystemRepoTest {
 	@Test
 	public void findClientByName_test() {
 		String name = "testClient";
-		List<Client> expected = clientRepo.findByclientNameIgnoreCase(name);
-		List<Client> actual = Arrays.asList(client1);
+		List<ClientC> expected = clientRepo.findByclientNameIgnoreCase(name);
+		List<ClientC> actual = Arrays.asList(client1);
 		assertEquals(expected, actual);
 	}
 
@@ -178,19 +178,19 @@ public class BookingSystemRepoTest {
 	@Test
 	public void addBarberToClientTest() {
 		BarberService barberSV = new BarberServiceImpl(barberRepo);
-		assertTrue(barberSV.addBarberToClient(client1, barber1));
+		assertTrue(barberSV.addBarberToClient(booking1, barber1));
 	}
 
 	@Test
 	public void addBookingToClientTest() {
-		BookingService bookingSV = new BookingServiceImpl(bookingRepo);
-		assertTrue(bookingSV.addBookingToClient(booking1, client1));
+		ClientService clientSV = new ClientServiceImpl(clientRepo);
+		assertTrue(clientSV.addBookingToClient(booking1, client1));
 	}
 
 	@Test
 	public void addHaircutToClientTest() {
 		HaircutStyleService haircutSV = new HaircutStyleServiceImpl(haircutRepo);
-		assertTrue(haircutSV.addHaircutTOclient(haircut1, client1));
+		assertTrue(haircutSV.addHaircutTOclient(haircut1,booking1));
 	}
 
 	@Test

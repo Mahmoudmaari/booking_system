@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import mahmoud.maari.booking_system.models.Booking;
-import mahmoud.maari.booking_system.models.Client;
+import mahmoud.maari.booking_system.models.ClientC;
 import mahmoud.maari.booking_system.repository.BookingRepo;
 
 @Service
@@ -64,24 +64,7 @@ public class BookingServiceImpl implements BookingService {
 	public Booking save(Booking booking) {
 		return bookingRepo.save(booking);
 	}
-	@Override
-	public boolean addBookingToClient(Booking b,Client c) {
-		List<Booking> booking = new ArrayList<>();
-
-		if(findById(b.getId()).equals(c.getBooking())) {
-			throw new IllegalArgumentException();
-		}
-		
-		c.setBooking(b);
-		return booking.add(b);
-	}
-	@Override
-	public boolean removec(Booking b,Client c) {
-		List<Booking> booking = new ArrayList<>();
-
 	
-		c.setBooking(b=null);
-		return booking.add(b);
-	}
+	
 	
 }
