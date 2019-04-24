@@ -89,4 +89,10 @@ public class ClientServiceImpl implements ClientService {
 		return booking.add(b);
 	}
 
+	@Override
+	public boolean removeClientFromBooking(Booking b, ClientC c) {
+		List<ClientC> client = new ArrayList<>();
+		b.setClient(c=null);
+		return client.add(c);
+	}
 }

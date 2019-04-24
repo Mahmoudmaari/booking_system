@@ -17,18 +17,21 @@ import org.springframework.web.bind.annotation.RestController;
 
 import mahmoud.maari.booking_system.form.BarberForm;
 import mahmoud.maari.booking_system.models.Barber;
+import mahmoud.maari.booking_system.models.Booking;
 import mahmoud.maari.booking_system.service.BarberService;
+import mahmoud.maari.booking_system.service.BookingService;
 
 @RestController
 public class BarberController {
 
 	 private BarberService barberSV;
-	 
+	 private BookingService bookingSV;
 	 
 	@Autowired
-	public BarberController(BarberService barberSV) {
+	public BarberController(BarberService barberSV,BookingService bookingSV) {
 		super();
 		this.barberSV = barberSV;
+		this.bookingSV = bookingSV;
 	}
 
 
@@ -72,5 +75,37 @@ public class BarberController {
 			return ResponseEntity.accepted().body(barberSV.save(barber));
 		}
 	}
+	@PostMapping("/Barber/{OID}/{BID}")
+	public ResponseEntity<Boolean> add (@PathVariable int OID,@PathVariable int BID ){
+		if(barberSV.findById(BID) == null) {
+			return ResponseEntity.notFound().build();
+		}
+		Barber barber = barberSV.findById(BID);
+		Booking booking = bookingSV.findById(OID);
+		
+		return ResponseEntity.ok(barberSV.addBookingToBarber(booking, barber));
+			
+		
+	}
 
+	@PostMapping("/Barber/Remove/{OID}/{BID}")
+	public ResponseEntity<Boolean> remove (@PathVariable int OID,@PathVariable int BID ){
+		if(barberSV.findById(BID) == null) {
+			return ResponseEntity.notFound().build();
+		}
+		Barber barber = barberSV.findById(BID);
+		Booking booking = bookingSV.findById(OID);
+		
+		return ResponseEntity.ok(barberSV.removeBarberFromBooking(booking, barber));	
+		
+	}
+	@PutMapping("/Barber/{id}/available")
+	public ResponseEntity<Barber> available(@PathVariable int id ,@Valid @RequestBody BarberForm newBarber){
+		if(barberSV.findById(id)== null) {
+			return ResponseEntity.notFound().build();
+		}
+		Barber barber = barberSV.findById(id);
+		barber.setAvailable(newBarber.isAvailable());
+		return ResponseEntity.accepted().body(barber);
+	}
 }

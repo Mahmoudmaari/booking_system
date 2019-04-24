@@ -22,22 +22,23 @@ public class BarberRate {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@Transient
+	@Transient 
 	private double oldRate;
 	@ElementCollection(targetClass=BigDecimal.class)
 	private List<BigDecimal> starRate;
 	private BigDecimal RateResult;
+	
 	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
-			CascadeType.REFRESH }, fetch = FetchType.LAZY)
+			CascadeType.REFRESH }, fetch = FetchType.EAGER)
 	private Barber barber;
 	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
 			CascadeType.REFRESH }, fetch = FetchType.EAGER)
 	private ClientC client;
 
-	public BarberRate(List<BigDecimal> starRate, BigDecimal rateResult) {
+	public BarberRate(List<BigDecimal> starRate) {
 		super();
 		this.starRate = starRate;
-		this.RateResult = rateResult;
+		
 	}
 
 	public BarberRate() {
@@ -86,6 +87,8 @@ public class BarberRate {
 	public int getId() {
 		return id;
 	}
+	
+	
 
 	@Override
 	public int hashCode() {

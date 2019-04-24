@@ -87,7 +87,7 @@ public class CommandLine implements CommandLineRunner {
 		r1.add(new BigDecimal(3.0));
 		r1.add(new BigDecimal(3.0));
 		r1.add(new BigDecimal(3.0));
-		BarberRate rate = new BarberRate(r1, new BigDecimal(0));
+		BarberRate rate = new BarberRate(r1);
 		List<BigDecimal> r = new ArrayList<>();
 		r.add(new BigDecimal(4.5));
 		r.add(new BigDecimal(4.0));
@@ -107,7 +107,7 @@ public class CommandLine implements CommandLineRunner {
 		r.add(new BigDecimal(3.0));
 		r.add(new BigDecimal(3.0));
 		r.add(new BigDecimal(3.0));
-		BarberRate rate1 = new BarberRate(r, new BigDecimal(0));
+		BarberRate rate1 = new BarberRate(r);
 		barberRepo.save(barber);
 		barberRepo.save(barber2);
 		clientRepo.save(client1);
@@ -118,12 +118,12 @@ public class CommandLine implements CommandLineRunner {
 		haircutRepo.save(haircut2);
 		rateRepo.save(rate);
 		rateRepo.save(rate1);
-		barberSV.addBarberToClient(booking1,barber);
-		barberSV.addBarberToClient(booking2,barber2);
+		barberSV.addBookingToBarber(booking1,barber);
+		barberSV.addBookingToBarber(booking2,barber2);
 		clientSV.addBookingToClient(booking1, client1);
 		clientSV.addBookingToClient(booking2, client2);
-		haircutSV.addHaircutTOclient(haircut1, booking1);
-		haircutSV.addHaircutTOclient(haircut1, booking2);
+		haircutSV.addBookingToHaircut(haircut1, booking1);
+		haircutSV.addBookingToHaircut(haircut1, booking2);
 		rate.RateCal(r1);
 		rate1.RateCal(r);
 		System.out.println(rate.getOldRate()+"  "+rate.getRateResult());

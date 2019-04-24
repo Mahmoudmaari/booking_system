@@ -15,18 +15,21 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import mahmoud.maari.booking_system.form.ClientForm;
+import mahmoud.maari.booking_system.models.Booking;
 import mahmoud.maari.booking_system.models.ClientC;
+import mahmoud.maari.booking_system.service.BookingService;
 import mahmoud.maari.booking_system.service.ClientService;
 
 @RestController
 public class ClientController {
 
 	private ClientService clientSV;
-
+	private BookingService bookingSV;
 	@Autowired
-	public ClientController(ClientService clientSV) {
+	public ClientController(ClientService clientSV,BookingService bookingSV) {
 		super();
 		this.clientSV = clientSV;
+		this.bookingSV = bookingSV;
 	}
 	
 	@GetMapping("/ClientC")
@@ -81,5 +84,22 @@ public class ClientController {
 		client.setPassword(newclient.getPassword());
 		return ResponseEntity.accepted().body(client);
 	}
-	
+	@PostMapping("/ClientC/{BID}/{CID}")
+	public ResponseEntity<Boolean> add(@PathVariable int BID,@PathVariable int CID){
+		if(bookingSV.findById(BID)==null) {
+			ResponseEntity.notFound().build();
+		}
+		ClientC client = clientSV.findById(CID);
+		Booking booking = bookingSV.findById(BID);
+		return ResponseEntity.ok(clientSV.addBookingToClient(booking, client));
+	}
+	@PostMapping("/ClientC/Remove/{BID}/{CID}")
+	public ResponseEntity<Boolean> remove (@PathVariable int BID,@PathVariable int CID){
+		if(bookingSV.findById(BID)==null) {
+			ResponseEntity.notFound().build();
+		}
+		ClientC client = clientSV.findById(CID);
+		Booking booking = bookingSV.findById(BID);
+		return ResponseEntity.ok(clientSV.addBookingToClient(booking, client));
+	}
 }

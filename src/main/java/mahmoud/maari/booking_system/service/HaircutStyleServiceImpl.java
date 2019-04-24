@@ -7,10 +7,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 import mahmoud.maari.booking_system.models.Booking;
-import mahmoud.maari.booking_system.models.ClientC;
 import mahmoud.maari.booking_system.models.HaircutStyle;
 import mahmoud.maari.booking_system.repository.HaircutStyleRepo;
 
@@ -65,12 +63,18 @@ public class HaircutStyleServiceImpl implements HaircutStyleService {
 		return haircutRepo.save(haircutStyle);
 	}
 	@Override
-	public boolean addHaircutTOclient(HaircutStyle h,Booking b) {
+	public boolean addBookingToHaircut(HaircutStyle h,Booking b) {
 		List<HaircutStyle> haircut = new ArrayList<>();
 		if(findById(h.getId()).equals(b.getHaircutStyle())){
 			throw new IllegalArgumentException();
 		}
 		b.setHaircutStyle(h);;
+		return haircut.add(h);
+	}
+	@Override
+	public boolean RemoveHiarcutFromBooking(HaircutStyle h,Booking b) {
+		List<HaircutStyle> haircut = new ArrayList<>();
+		b.setHaircutStyle(h=null);
 		return haircut.add(h);
 	}
 }

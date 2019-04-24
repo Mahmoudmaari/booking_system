@@ -22,4 +22,6 @@ public interface ClientService {
 
 	boolean addBookingToClient(Booking b, ClientC c);
 
+	boolean removeClientFromBooking(Booking b, ClientC c);
+
 }

@@ -5,14 +5,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import mahmoud.maari.booking_system.models.Barber;
 import mahmoud.maari.booking_system.models.BarberRate;
 import mahmoud.maari.booking_system.models.Booking;
-import mahmoud.maari.booking_system.models.ClientC;
 import mahmoud.maari.booking_system.repository.BarberRepo;
 
 @Service
@@ -72,12 +70,12 @@ public class BarberServiceImpl implements BarberService {
 	}
 	
 	@Override
-	public boolean addBarberToClient(Booking o,Barber b) {
+	public boolean addBookingToBarber(Booking o,Barber b) {
 		List<Barber> barber = new ArrayList<>();
 		if(findById(b.getId()).equals(o.getBarber())) {
 			throw new IllegalArgumentException();
 		}
-		o.setBarber(b);;
+		o.setBarber(b);
 		return barber.add(b);
 	}
 	@Override
@@ -88,5 +86,11 @@ public class BarberServiceImpl implements BarberService {
 		}
 		r.setBarber(findById(b.getId()));
 		return rate.add(r);
+	}
+	@Override
+	public boolean removeBarberFromBooking (Booking o,Barber b ) {
+		List<Barber> barber = new ArrayList<>();
+		o.setBarber(b=null);
+		return barber.add(b);
 	}
 }

@@ -2,7 +2,6 @@ package mahmoud.maari.booking_system.controller;
 
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,18 +14,22 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import mahmoud.maari.booking_system.form.HaircutForm;
+import mahmoud.maari.booking_system.models.Booking;
 import mahmoud.maari.booking_system.models.HaircutStyle;
+import mahmoud.maari.booking_system.service.BookingService;
 import mahmoud.maari.booking_system.service.HaircutStyleService;
 
 @RestController
 public class HaircutController {
 	
 	private HaircutStyleService hairStyleSV;
+	private BookingService bookingSV;
 
 	@Autowired
-	public HaircutController(HaircutStyleService hairStyleSV) {
+	public HaircutController(HaircutStyleService hairStyleSV,BookingService bookingSV) {
 		super();
 		this.hairStyleSV = hairStyleSV;
+		this.bookingSV = bookingSV;
 	}
 	
 	@GetMapping("/HaircutStyle")
@@ -65,5 +68,23 @@ public class HaircutController {
 		haircut.setDescription(newhaircut.getDescription());
 		haircut.setPrice(newhaircut.getPrice());
 		return ResponseEntity.accepted().body(haircut);
+	}
+	@PostMapping("/HaircutStyle/{BID}/{HID}")
+	public ResponseEntity<Boolean> add (@PathVariable int HID,@PathVariable int BID){
+		if (bookingSV.findById(BID)==null) {
+			ResponseEntity.notFound().build();
+		}
+		HaircutStyle haircut= hairStyleSV.findById(HID);
+		Booking booking = bookingSV.findById(BID);
+		return ResponseEntity.ok(hairStyleSV.addBookingToHaircut(haircut, booking));
+	}
+	@PostMapping("/HaircutStyle/Remove/{BID}/{HID}")
+	public ResponseEntity<Boolean> Remove(@PathVariable int HID,@PathVariable int BID){
+		if (bookingSV.findById(BID)==null) {
+			ResponseEntity.notFound().build();
+		}
+		HaircutStyle haircut= hairStyleSV.findById(HID);
+		Booking booking = bookingSV.findById(BID);
+		return ResponseEntity.ok(hairStyleSV.RemoveHiarcutFromBooking(haircut, booking));
 	}
 }

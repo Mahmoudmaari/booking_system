@@ -74,7 +74,7 @@ public class BookingSystemRepoTest {
 		List<BigDecimal> star = new ArrayList<>();
 		star.add(new BigDecimal(4.5));
 		star.add(new BigDecimal(4.7));
-		BarberRate rate = new BarberRate(star, new BigDecimal(0));
+		BarberRate rate = new BarberRate(star);
 		rate.RateCal(star);
 		this.haircut1 = haircutRepo.save(haircut);
 		this.barber1 = barberRepo.save(barber);
@@ -178,7 +178,7 @@ public class BookingSystemRepoTest {
 	@Test
 	public void addBarberToClientTest() {
 		BarberService barberSV = new BarberServiceImpl(barberRepo);
-		assertTrue(barberSV.addBarberToClient(booking1, barber1));
+		assertTrue(barberSV.addBookingToBarber(booking1, barber1));
 	}
 
 	@Test
@@ -190,7 +190,7 @@ public class BookingSystemRepoTest {
 	@Test
 	public void addHaircutToClientTest() {
 		HaircutStyleService haircutSV = new HaircutStyleServiceImpl(haircutRepo);
-		assertTrue(haircutSV.addHaircutTOclient(haircut1,booking1));
+		assertTrue(haircutSV.addBookingToHaircut(haircut1,booking1));
 	}
 
 	@Test

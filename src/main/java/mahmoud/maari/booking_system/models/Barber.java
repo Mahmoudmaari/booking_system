@@ -15,10 +15,6 @@ public class Barber {
 	private boolean available;
 
 
-
-
-
-
 	public Barber(String name, String phoneNaumber, boolean available) {
 		super();
 		this.name = name;
