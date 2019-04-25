@@ -1,6 +1,7 @@
 package mahmoud.maari.booking_system.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -68,12 +69,17 @@ public class ClientServiceImpl implements ClientService {
 	}
 	
 	@Override
-	public boolean takeRateFromClient(ClientC c,BarberRate r) {
+	public boolean takeRateFromClient(ClientC client,BarberRate r) {
 		List<BarberRate> rate = new ArrayList<>();
-		if(findById(c.getId()).equals(r.getClient())){
+		List<ClientC> clients = new ArrayList<>();
+		clients.addAll(r.getClient());
+		clients.add(findById(client.getId()));
+		
+		if(clients.equals(r.getClient())){
 			throw new IllegalArgumentException();
 		}
-		r.setClient(findById(c.getId()));
+		
+		
 		return rate.add(r);
 	}
 	

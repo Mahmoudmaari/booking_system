@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.boot.CommandLineRunner;
@@ -64,10 +65,13 @@ public class CommandLine implements CommandLineRunner {
 				"client1@clientmail.com", "1234");
 		ClientC client2 = new ClientC("Client2", LocalDate.parse("2000-05-20"), "female", "079-xxxxxxx",
 				"Client1@gmail.com", "1234");
+		ClientC client3 = new ClientC("Client2", LocalDate.parse("2000-05-20"), "female", "079-xxxxxxx",
+				"Client1@gmail.com", "1234");
 		Booking booking1 = new Booking(LocalDate.now(), LocalTime.parse("15:14"),true);
 		Booking booking2 = new Booking(LocalDate.now(), LocalTime.now(),true);
 		HaircutStyle haircut1 = new HaircutStyle("Normal", "Normal haircut", 250);
 		HaircutStyle haircut2 = new HaircutStyle("Zero", "Zero haircit", 200);
+		
 		List<BigDecimal> r1 = new ArrayList<>();
 		r1.add(new BigDecimal(4.5));
 		r1.add(new BigDecimal(4.0));
@@ -112,6 +116,7 @@ public class CommandLine implements CommandLineRunner {
 		barberRepo.save(barber2);
 		clientRepo.save(client1);
 		clientRepo.save(client2);
+		clientRepo.save(client3);
 		bookingRepo.save(booking1);
 		bookingRepo.save(booking2);
 		haircutRepo.save(haircut1);

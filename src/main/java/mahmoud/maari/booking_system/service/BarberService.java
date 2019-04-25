@@ -25,4 +25,6 @@ public interface BarberService {
 	boolean removeBarberFromBooking(Booking o, Barber b);
 
 	
+
+	
 }

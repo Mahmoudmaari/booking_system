@@ -12,6 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
 
@@ -28,12 +30,12 @@ public class BarberRate {
 	private List<BigDecimal> starRate;
 	private BigDecimal RateResult;
 	
-	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
+	@OneToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
 			CascadeType.REFRESH }, fetch = FetchType.EAGER)
 	private Barber barber;
-	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
+	@OneToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
 			CascadeType.REFRESH }, fetch = FetchType.EAGER)
-	private ClientC client;
+	private List<ClientC> client;
 
 	public BarberRate(List<BigDecimal> starRate) {
 		super();
@@ -76,11 +78,13 @@ public class BarberRate {
 		this.barber = barber;
 	}
 
-	public ClientC getClient() {
+	
+
+	public List<ClientC> getClient() {
 		return client;
 	}
 
-	public void setClient(ClientC client) {
+	public void setClient(List<ClientC> client) {
 		this.client = client;
 	}
 

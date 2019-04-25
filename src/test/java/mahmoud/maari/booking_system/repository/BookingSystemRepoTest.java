@@ -196,7 +196,8 @@ public class BookingSystemRepoTest {
 	@Test
 	public void takeRatefromClientTest() {
 		ClientService clientSV = new ClientServiceImpl(clientRepo);
-		assertTrue(clientSV.takeRateFromClient(client1, Rate1));
+		
+ 		assertTrue(clientSV.takeRateFromClient(client1, Rate1));
 	}
 
 	@Test
