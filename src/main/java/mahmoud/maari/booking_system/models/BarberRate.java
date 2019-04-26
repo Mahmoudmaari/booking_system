@@ -30,13 +30,7 @@ public class BarberRate {
 	private List<BigDecimal> starRate;
 	private BigDecimal RateResult;
 	
-	@OneToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
-			CascadeType.REFRESH }, fetch = FetchType.EAGER)
-	private Barber barber;
-	@OneToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
-			CascadeType.REFRESH }, fetch = FetchType.EAGER)
-	private List<ClientC> client;
-
+	
 	public BarberRate(List<BigDecimal> starRate) {
 		super();
 		this.starRate = starRate;
@@ -70,23 +64,7 @@ public class BarberRate {
 		RateResult = rateResult;
 	}
 
-	public Barber getBarber() {
-		return barber;
-	}
 
-	public void setBarber(Barber barber) {
-		this.barber = barber;
-	}
-
-	
-
-	public List<ClientC> getClient() {
-		return client;
-	}
-
-	public void setClient(List<ClientC> client) {
-		this.client = client;
-	}
 
 	public int getId() {
 		return id;
@@ -119,7 +97,7 @@ public class BarberRate {
 	@Override
 	public String toString() {
 		return "BarberRate [id=" + id + ", oldRate=" + oldRate + ", starRate=" + starRate + ", RateResult=" + RateResult
-				+ ", barber=" + barber + ", client=" + client + "]";
+				 + "]";
 	}
 
 	public BigDecimal RateCal(List<BigDecimal> starRate) {

@@ -2,7 +2,6 @@ package mahmoud.maari.booking_system.service;
 
 import java.util.List;
 
-import mahmoud.maari.booking_system.models.BarberRate;
 import mahmoud.maari.booking_system.models.Booking;
 import mahmoud.maari.booking_system.models.ClientC;
 
@@ -18,7 +17,7 @@ public interface ClientService {
 
 	ClientC save(ClientC client);
 
-	boolean takeRateFromClient(ClientC c, BarberRate r);
+
 
 	boolean addBookingToClient(Booking b, ClientC c);
 

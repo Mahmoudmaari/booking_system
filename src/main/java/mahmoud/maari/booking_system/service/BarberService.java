@@ -3,7 +3,6 @@ package mahmoud.maari.booking_system.service;
 import java.util.List;
 
 import mahmoud.maari.booking_system.models.Barber;
-import mahmoud.maari.booking_system.models.BarberRate;
 import mahmoud.maari.booking_system.models.Booking;
 
 public interface BarberService {
@@ -18,7 +17,6 @@ public interface BarberService {
 
 	Barber save(Barber barber);
 
-	boolean addRateToBarber(Barber b, BarberRate r);
 
 	boolean addBookingToBarber(Booking o, Barber b);
 

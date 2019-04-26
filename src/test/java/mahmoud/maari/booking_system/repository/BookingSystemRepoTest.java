@@ -192,19 +192,5 @@ public class BookingSystemRepoTest {
 		HaircutStyleService haircutSV = new HaircutStyleServiceImpl(haircutRepo);
 		assertTrue(haircutSV.addBookingToHaircut(haircut1,booking1));
 	}
-
-	@Test
-	public void takeRatefromClientTest() {
-		ClientService clientSV = new ClientServiceImpl(clientRepo);
-		
- 		assertTrue(clientSV.takeRateFromClient(client1, Rate1));
-	}
-
-	@Test
-	public void addRateToBarberTest() {
-		BarberService barberSV = new BarberServiceImpl(barberRepo);
-		assertTrue(barberSV.addRateToBarber(barber1, Rate1));
-	}
-
 	
 }

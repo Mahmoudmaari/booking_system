@@ -35,8 +35,9 @@ public class Booking {
 	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
 			CascadeType.REFRESH }, fetch = FetchType.EAGER)
 	private HaircutStyle haircutStyle;
-	
-	
+	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
+			CascadeType.REFRESH }, fetch = FetchType.EAGER)
+	private BarberRate rate;
 	
 	public Booking(LocalDate bookingDate, LocalTime bookingTime, boolean booked) {
 		super();
@@ -62,6 +63,17 @@ public class Booking {
 	public LocalDate getBookingDate() {
 		return bookingDate;
 	}
+	
+
+	public BarberRate getRate() {
+		return rate;
+	}
+
+
+	public void setRate(BarberRate rate) {
+		this.rate = rate;
+	}
+
 
 	public void setBookingDate(LocalDate bookingDate) {
 		this.bookingDate = bookingDate;

@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import ch.qos.logback.core.net.server.Client;
 import mahmoud.maari.booking_system.models.Barber;
-import mahmoud.maari.booking_system.models.BarberRate;
 import mahmoud.maari.booking_system.models.Booking;
 import mahmoud.maari.booking_system.repository.BarberRepo;
 
@@ -79,15 +77,7 @@ public class BarberServiceImpl implements BarberService {
 		o.setBarber(b);
 		return barber.add(b);
 	}
-	@Override
-	public boolean addRateToBarber(Barber b , BarberRate r) {
-		List<BarberRate> rate= new ArrayList<>();
-		if(findById(b.getId()).equals(r.getBarber())) {
-			throw new IllegalArgumentException();
-		}
-		r.setBarber(findById(b.getId()));
-		return rate.add(r);
-	}
+	
 	@Override
 	public boolean removeBarberFromBooking (Booking o,Barber b ) {
 		List<Barber> barber = new ArrayList<>();
