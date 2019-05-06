@@ -43,8 +43,10 @@ public class BookingController {
 		if(newBooking == null) {
 			ResponseEntity.badRequest().build();
 		}
-		Booking booking = bookingSV.save(new Booking(newBooking.getBookingDate(), newBooking.getBookingTime(), newBooking.isBooked()));
+		Booking booking = bookingSV.save(new Booking(newBooking.getBookingDate(),
+				newBooking.getBookingTime(), newBooking.isBooked()));
 		return ResponseEntity.status(HttpStatus.CREATED).body(booking);
+		
 	}
 	@GetMapping("/Booking/{id}")
 	public ResponseEntity<Booking> findById(@PathVariable int id, @Valid @RequestBody Booking booking){

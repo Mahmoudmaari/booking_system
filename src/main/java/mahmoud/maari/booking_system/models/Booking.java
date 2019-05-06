@@ -1,5 +1,6 @@
 package mahmoud.maari.booking_system.models;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -15,7 +16,9 @@ import javax.persistence.ManyToOne;
 public class Booking {
 	@Override
 	public String toString() {
-		return "Booking [id=" + id + ", bookingDate=" + bookingDate + ", Bookningtime=" + bookingTime + "]";
+		return "Booking [id=" + id + ", bookingDate=" + bookingDate + ", bookingTime=" + bookingTime + ", booked="
+				+ booked + ", bookingRate=" + bookingRate + ", barber=" + barber + ", client=" + client
+				+ ", haircutStyle=" + haircutStyle + ", rate=" + rate + "]";
 	}
 
 	@Id
@@ -24,7 +27,8 @@ public class Booking {
 	private LocalDate bookingDate;
 	private LocalTime bookingTime;
 	private boolean booked;
-
+	private BigDecimal bookingRate;
+	
 	
 	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,
 			CascadeType.REFRESH }, fetch = FetchType.EAGER)
@@ -39,12 +43,18 @@ public class Booking {
 			CascadeType.REFRESH }, fetch = FetchType.EAGER)
 	private BarberRate rate;
 	
+	
+
+
 	public Booking(LocalDate bookingDate, LocalTime bookingTime, boolean booked) {
 		super();
 		this.bookingDate = bookingDate;
 		this.bookingTime = bookingTime;
 		this.booked = booked;
+		
 	}
+
+
 
 
 	public Booking() {} 
@@ -122,6 +132,16 @@ public class Booking {
 	}
 
 
+	public BigDecimal getBookingRate() {
+		return bookingRate;
+	}
+
+
+	public void setBookingRate(BigDecimal bookingRate) {
+		this.bookingRate = bookingRate;
+	}
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -149,4 +169,7 @@ public class Booking {
 			return false;
 		return true;
 	}	
+	
+	
+	
 }

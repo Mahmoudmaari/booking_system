@@ -1,5 +1,6 @@
 package mahmoud.maari.booking_system.form;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -8,7 +9,13 @@ public class BookingForm {
 	private LocalDate bookingDate;
 	private LocalTime bookingTime;
 	private boolean booked;
-	
+	private BigDecimal bookingRate;
+	public BigDecimal getBookingRate() {
+		return bookingRate;
+	}
+	public void setBookingRate(BigDecimal bookingRate) {
+		this.bookingRate = bookingRate;
+	}
 	public LocalDate getBookingDate() {
 		return bookingDate;
 	}

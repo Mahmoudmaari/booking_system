@@ -4,14 +4,15 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public class BarberRateForm {
-	private List<BigDecimal> starRate;
+	private BigDecimal starRate;
 	private BigDecimal RateResult;
 	private double oldRate;
 	
-	public List<BigDecimal> getStarRate() {
+	
+	public BigDecimal getStarRate() {
 		return starRate;
 	}
-	public void setStarRate(List<BigDecimal> starRate) {
+	public void setStarRate(BigDecimal starRate) {
 		this.starRate = starRate;
 	}
 	public BigDecimal getRateResult() {

@@ -24,15 +24,15 @@ public class BarberRate {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@Transient 
-	private double oldRate;
-	@ElementCollection(targetClass=BigDecimal.class)
-	private List<BigDecimal> starRate;
-	private BigDecimal RateResult;
+	private BigDecimal starRate;
 	
 	
-	public BarberRate(List<BigDecimal> starRate) {
+	
+	public BarberRate(BigDecimal starRate) {
 		super();
+		if(starRate.equals(new BigDecimal(0)) ) {
+			throw new IllegalArgumentException();
+		}
 		this.starRate = starRate;
 		
 	}
@@ -40,32 +40,15 @@ public class BarberRate {
 	public BarberRate() {
 	}
 
-	public List<BigDecimal> getStarRate() {
+	public BigDecimal getStarRate() {
 		return starRate;
 	}
 
-	public void setStarRate(List<BigDecimal> starRate) {
+	public void setStarRate(BigDecimal starRate) {
 		this.starRate = starRate;
 	}
 
-	public double getOldRate() {
-		return oldRate;
-	}
-
-	public void setOldRate(double oldRate) {
-		this.oldRate = oldRate;
-	}
-
-	public BigDecimal getRateResult() {
-		return RateResult;
-	}
-
-	public void setRateResult(BigDecimal rateResult) {
-		RateResult = rateResult;
-	}
-
-
-
+	
 	public int getId() {
 		return id;
 	}
@@ -96,16 +79,8 @@ public class BarberRate {
 
 	@Override
 	public String toString() {
-		return "BarberRate [id=" + id + ", oldRate=" + oldRate + ", starRate=" + starRate + ", RateResult=" + RateResult
-				 + "]";
+		return "BarberRate [id=" + id + ", starRate=" + starRate + "]";
 	}
 
-	public BigDecimal RateCal(List<BigDecimal> starRate) {
-
-		starRate.forEach(s -> oldRate += s.doubleValue());
-		oldRate /= starRate.size();
-		RateResult = new BigDecimal(oldRate).setScale(1, RoundingMode.DOWN);
-		return RateResult;
-	}
 	
 }

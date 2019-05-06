@@ -16,21 +16,29 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import mahmoud.maari.booking_system.form.BarberRateForm;
+import mahmoud.maari.booking_system.models.Barber;
 import mahmoud.maari.booking_system.models.BarberRate;
+import mahmoud.maari.booking_system.models.Booking;
 import mahmoud.maari.booking_system.service.BarberRateService;
+import mahmoud.maari.booking_system.service.BarberService;
+import mahmoud.maari.booking_system.service.BookingService;
 
 @RestController
 public class BarberRateController {
 
 	private BarberRateService rateSV;
+	private BookingService bookingSV;
+	private BarberService barberSV;
 
 	
 	@Autowired
-	public BarberRateController(BarberRateService rateSV) {
+	public BarberRateController(BarberRateService rateSV, BookingService bookingSV, BarberService barberSV) {
 		super();
 		this.rateSV = rateSV;
-		
+		this.bookingSV = bookingSV;
+		this.barberSV = barberSV;
 	}
+
 	
 	@GetMapping("/BarberRate")
 	public ResponseEntity<List<BarberRate>> getAllRate(){
@@ -41,21 +49,22 @@ public class BarberRateController {
 		return ResponseEntity.ok(rate);
 				
 	}
+	
+
 	@PostMapping("/BarberRate")
 	public ResponseEntity<BarberRate> create (@Valid @RequestBody BarberRateForm rateForm){
 		BarberRate rate = rateSV.save(new BarberRate(rateForm.getStarRate()));
-		rate.setRateResult(rate.RateCal(rate.getStarRate()));
+		
 		return ResponseEntity.status(HttpStatus.CREATED).body(rate);
 	}
 	
 	@PutMapping("/BarberRate/{id}")
-	public ResponseEntity<BarberRate> add(@PathVariable int id,@Valid @RequestBody BarberRateForm rateForm){
+	public ResponseEntity<BigDecimal> cal(@PathVariable int id){
 		
-		List<BigDecimal> newRate = rateForm.getStarRate();
-		BarberRate rate = rateSV.findById(id);
-		rate.getStarRate().addAll(newRate);
-		rate.setRateResult(rate.RateCal(rate.getStarRate()));
-		return ResponseEntity.ok().body(rateSV.save(rate));
+	   Barber barber = barberSV.findById(id);
+	   
+	
+		return ResponseEntity.ok().body(bookingSV.RateCal(barber));
 	}
 	
 	@GetMapping("/BarberRate/{id}")
@@ -63,6 +72,14 @@ public class BarberRateController {
 		return ResponseEntity.ok().body(rateSV.findById(id));		
 	}
 	
-	
-	
+	@PutMapping("/BarberRate/rate/{RID}/{BID}")
+	public ResponseEntity<BarberRate> addRateToBooking(@PathVariable int RID,@PathVariable int BID){
+		BarberRate rate = rateSV.findById(RID);
+		Booking booking = bookingSV.findById(BID);
+		if(rate==null) {
+			ResponseEntity.notFound().build();
+		}
+		rateSV.addRateToBooking(rate, booking);
+		return ResponseEntity.accepted().body(rateSV.save(rate));
+	}
 }

@@ -1,13 +1,18 @@
 package mahmoud.maari.booking_system.service;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import mahmoud.maari.booking_system.models.Barber;
+import mahmoud.maari.booking_system.models.BarberRate;
 import mahmoud.maari.booking_system.models.Booking;
 import mahmoud.maari.booking_system.repository.BookingRepo;
 
@@ -62,7 +67,35 @@ public class BookingServiceImpl implements BookingService {
 	public Booking save(Booking booking) {
 		return bookingRepo.save(booking);
 	}
-	
+	@Override
+	public List<Booking> findBookingByBarberId(Barber barber) {
+		
+		if(barber == null) {
+			throw new IllegalArgumentException();
+		}
+		int id = barber.getId();
+		return bookingRepo.findBarber(id);
+	}
+	BigDecimal rate;
+	List<Booking> o;
+	@Override
+	public BigDecimal RateCal(Barber b) {
+		 o= new ArrayList<>();
+		o.addAll(findBookingByBarberId(b));
+		o.forEach(System.out::println);
+		if(findBookingByBarberId(b).isEmpty()) {
+			throw new IllegalArgumentException();
+		}
+		o.removeIf(o->o.getRate()==null);
+		List<BigDecimal> result = new ArrayList<>();
+		 rate = new BigDecimal(0);
+		o.forEach(bo-> result.add(bo.getRate().getStarRate()));
+		result.forEach(r-> rate=rate.add(r));;
+		rate=rate.divide(new BigDecimal(o.size()));
+		return rate;
+		
+		
+	}
 	
 	
 }
