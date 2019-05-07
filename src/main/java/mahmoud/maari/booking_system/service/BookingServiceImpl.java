@@ -1,6 +1,7 @@
 package mahmoud.maari.booking_system.service;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -91,7 +92,7 @@ public class BookingServiceImpl implements BookingService {
 		 rate = new BigDecimal(0);
 		o.forEach(bo-> result.add(bo.getRate().getStarRate()));
 		result.forEach(r-> rate=rate.add(r));;
-		rate=rate.divide(new BigDecimal(o.size()));
+		rate=rate.divide(new BigDecimal(o.size())).setScale(1, RoundingMode.DOWN);
 		return rate;
 		
 		

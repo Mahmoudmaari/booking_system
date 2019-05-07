@@ -72,15 +72,11 @@ public class CommandLine implements CommandLineRunner {
 		BarberRate rate1 = new BarberRate(new BigDecimal(4.5));
 		BarberRate rate3 = new BarberRate(new BigDecimal(1));
 		Booking booking1 = new Booking(LocalDate.now(), LocalTime.parse("15:14"),true);
+		Booking booking4 = new Booking(LocalDate.now(), LocalTime.parse("15:14"),true);
 		Booking booking2 = new Booking(LocalDate.now(), LocalTime.now(),true);
 		
 		HaircutStyle haircut1 = new HaircutStyle("Normal", "Normal haircut", 250);
 		HaircutStyle haircut2 = new HaircutStyle("Zero", "Zero haircit", 200);
-		List<ClientC> clients1 = Arrays.asList(client1);
-		List<ClientC> clients2 = new ArrayList<>();
-		clients2.add(client2);
-		clients2.add(client3);
-	
 		BarberRate rate = new BarberRate(new BigDecimal(5));
 		List<BigDecimal> r = new ArrayList<>();
 		r.add(new BigDecimal(4.5));
@@ -129,6 +125,8 @@ public class CommandLine implements CommandLineRunner {
 		booking1.setBookingRate(rate.getStarRate());
 		Booking booking3= new Booking(LocalDate.now(), LocalTime.now(),true);
 		bookingSV.save(booking3);
+		bookingSV.save(booking4);
+		barberSV.addBookingToBarber(booking4,barber);
 		clientSV.addBookingToClient(booking3, client1);
 		clientSV.findAll().forEach(System.out::println);
 		rateSV.addRateToBooking(rate1, booking1);

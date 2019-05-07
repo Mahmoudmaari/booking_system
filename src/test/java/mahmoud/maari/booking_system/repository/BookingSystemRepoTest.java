@@ -75,9 +75,7 @@ public class BookingSystemRepoTest {
 		BarberRate rate = new BarberRate(new BigDecimal(4.7));
 		
 		Booking booking = new Booking(LocalDate.parse("2019-04-04"), LocalTime.parse("15:00:00"),true);
-		List<BigDecimal> star = new ArrayList<>();
-		star.add(new BigDecimal(4.5));
-		star.add(new BigDecimal(4.7));
+		
 	
 		this.haircut1 = haircutRepo.save(haircut);
 		this.barber1 = barberRepo.save(barber);
@@ -167,47 +165,8 @@ public class BookingSystemRepoTest {
 		List<Booking> actual = Arrays.asList(booking1);
 		assertEquals(expected, actual);
 	}
-//	@Test
-//	public void addRateTest() {
-//
-//		BigDecimal expected = new BigDecimal(4.6).setScale(1, RoundingMode.DOWN);
-//		assertEquals(expected, result);
-//
-//	}
+
 	
-	/*
-	 * Service class test
-	 */
-
-	@Test
-	public void addBarberToClientTest() {
-		BarberService barberSV = new BarberServiceImpl(barberRepo);
-		assertTrue(barberSV.addBookingToBarber(booking1, barber1));
-	}
-
-	@Test
-	public void addBookingToClientTest() {
-		ClientService clientSV = new ClientServiceImpl(clientRepo);
-		assertTrue(clientSV.addBookingToClient(booking1, client1));
-	}
-
-	@Test
-	public void addHaircutToClientTest() {
-		HaircutStyleService haircutSV = new HaircutStyleServiceImpl(haircutRepo);
-		assertTrue(haircutSV.addBookingToHaircut(haircut1,booking1));
-	}
-	@Test
-	public void findBarberInBooking() {
-	BarberService barberSV = new BarberServiceImpl(barberRepo);
-	BookingService b= new BookingServiceImpl(bookingRepo);
-	barberSV.addBookingToBarber(booking1, barber1);
-	List<Booking> booking =	new ArrayList<>();
-	booking.addAll(b.findBookingByBarberId(barber1));
-	List<Booking> actual = new ArrayList<>();
-	actual.add(booking1);
-	assertEquals(booking, actual);
 	
-	}
-
 	
 }
