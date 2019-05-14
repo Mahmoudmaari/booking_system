@@ -28,16 +28,6 @@ import mahmoud.maari.booking_system.repository.BarberRepo;
 import mahmoud.maari.booking_system.repository.BookingRepo;
 import mahmoud.maari.booking_system.repository.ClientRepo;
 import mahmoud.maari.booking_system.repository.HaircutStyleRepo;
-import mahmoud.maari.booking_system.service.BarberRateService;
-import mahmoud.maari.booking_system.service.BarberRateServiceImpl;
-import mahmoud.maari.booking_system.service.BarberService;
-import mahmoud.maari.booking_system.service.BarberServiceImpl;
-import mahmoud.maari.booking_system.service.BookingService;
-import mahmoud.maari.booking_system.service.BookingServiceImpl;
-import mahmoud.maari.booking_system.service.ClientService;
-import mahmoud.maari.booking_system.service.ClientServiceImpl;
-import mahmoud.maari.booking_system.service.HaircutStyleService;
-import mahmoud.maari.booking_system.service.HaircutStyleServiceImpl;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -60,11 +50,6 @@ public class BookingSystemServiceTest {
 	private HaircutStyle haircut1;
 	private Booking booking1;
 	private BarberRate Rate1;
-	private int barberId;
-	private int clientId;
-	private int haircutId;
-	private int bookingId;
-	private int RateId;
 	private BarberService barberSV;
 	private BookingService bookingSV;
 	private ClientService clientSV;
@@ -89,11 +74,6 @@ public class BookingSystemServiceTest {
 		this.client1 = clientRepo.save(client);
 		this.booking1 = bookingRepo.save(booking);
 		this.Rate1 = RateRepo.save(rate);
-		this.barberId = barber.getId();
-		this.clientId = client.getId();
-		this.haircutId = haircut.getId();
-		this.bookingId = booking.getId();
-		this.RateId = rate.getId();
 		this.barberSV = new BarberServiceImpl(barberRepo);
 		this.bookingSV = new BookingServiceImpl(bookingRepo);
 		this.rateSV = new BarberRateServiceImpl(RateRepo);

@@ -1,7 +1,6 @@
 package mahmoud.maari.booking_system.form;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 public class BarberRateForm {
 	private BigDecimal starRate;

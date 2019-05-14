@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -25,16 +24,6 @@ import mahmoud.maari.booking_system.models.BarberRate;
 import mahmoud.maari.booking_system.models.Booking;
 import mahmoud.maari.booking_system.models.ClientC;
 import mahmoud.maari.booking_system.models.HaircutStyle;
-import mahmoud.maari.booking_system.service.BarberServiceImpl;
-import mahmoud.maari.booking_system.service.BookingService;
-import mahmoud.maari.booking_system.service.BookingServiceImpl;
-import mahmoud.maari.booking_system.service.ClientService;
-import mahmoud.maari.booking_system.service.ClientServiceImpl;
-import mahmoud.maari.booking_system.service.HaircutStyleService;
-import mahmoud.maari.booking_system.service.HaircutStyleServiceImpl;
-import mahmoud.maari.booking_system.service.BarberRateService;
-import mahmoud.maari.booking_system.service.BarberRateServiceImpl;
-import mahmoud.maari.booking_system.service.BarberService;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest

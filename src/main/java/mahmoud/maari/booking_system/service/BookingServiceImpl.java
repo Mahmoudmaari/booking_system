@@ -6,14 +6,12 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Predicate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import mahmoud.maari.booking_system.models.Barber;
-import mahmoud.maari.booking_system.models.BarberRate;
 import mahmoud.maari.booking_system.models.Booking;
 import mahmoud.maari.booking_system.repository.BookingRepo;
 

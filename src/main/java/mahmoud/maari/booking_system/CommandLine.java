@@ -3,9 +3,6 @@ package mahmoud.maari.booking_system;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -56,48 +53,29 @@ public class CommandLine implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		BarberService barberSV = new BarberServiceImpl(barberRepo);
 		BookingService bookingSV = new BookingServiceImpl(bookingRepo);
-		HaircutStyleService haircutSV= new HaircutStyleServiceImpl(haircutRepo);
-		ClientService clientSV= new ClientServiceImpl(clientRepo);
+		HaircutStyleService haircutSV = new HaircutStyleServiceImpl(haircutRepo);
+		ClientService clientSV = new ClientServiceImpl(clientRepo);
 		BarberRateService rateSV = new BarberRateServiceImpl(rateRepo);
-		Barber barber = new Barber("Barber1", "079-xxxxxxx",true);
-		Barber barber2 = new Barber("Barber2", "079-xxxxxxx",true);
+		Barber barber = new Barber("Barber1", "079-xxxxxxx", true);
+		Barber barber2 = new Barber("Barber2", "079-xxxxxxx", true);
 		ClientC client1 = new ClientC("Client1", LocalDate.parse("1995-09-14"), "male", "079-xxxxxxx",
 				"client1@clientmail.com", "1234");
 		ClientC client2 = new ClientC("Client2", LocalDate.parse("2000-05-20"), "female", "079-xxxxxxx",
 				"Client1@gmail.com", "1234");
 		ClientC client3 = new ClientC("Client2", LocalDate.parse("2000-05-20"), "female", "079-xxxxxxx",
 				"Client1@gmail.com", "1234");
-		ClientC client4= new ClientC("Client2", LocalDate.parse("2000-05-20"), "female", "079-xxxxxxx",
+		ClientC client4 = new ClientC("Client2", LocalDate.parse("2000-05-20"), "female", "079-xxxxxxx",
 				"Client1@gmail.com", "1234");
 		BarberRate rate1 = new BarberRate(new BigDecimal(4.5));
 		BarberRate rate3 = new BarberRate(new BigDecimal(1));
-		Booking booking1 = new Booking(LocalDate.now(), LocalTime.parse("15:14"),true);
-		Booking booking4 = new Booking(LocalDate.now(), LocalTime.parse("15:14"),true);
-		Booking booking2 = new Booking(LocalDate.now(), LocalTime.now(),true);
-		
+		Booking booking1 = new Booking(LocalDate.now(), LocalTime.parse("15:14"), true);
+		Booking booking4 = new Booking(LocalDate.now(), LocalTime.parse("15:14"), true);
+		Booking booking2 = new Booking(LocalDate.now(), LocalTime.now(), true);
+
 		HaircutStyle haircut1 = new HaircutStyle("Normal", "Normal haircut", 250);
 		HaircutStyle haircut2 = new HaircutStyle("Zero", "Zero haircit", 200);
 		BarberRate rate = new BarberRate(new BigDecimal(5));
-		List<BigDecimal> r = new ArrayList<>();
-		r.add(new BigDecimal(4.5));
-		r.add(new BigDecimal(4.0));
-		r.add(new BigDecimal(3.0));
-		r.add(new BigDecimal(5.0));
-		r.add(new BigDecimal(5.0));
-		r.add(new BigDecimal(4.5));
-		r.add(new BigDecimal(4.5));
-		r.add(new BigDecimal(4.5));
-		r.add(new BigDecimal(4.5));
-		r.add(new BigDecimal(4.5));
-		r.add(new BigDecimal(4.5));
-		r.add(new BigDecimal(4.0));
-		r.add(new BigDecimal(4.0));
-		r.add(new BigDecimal(3.0));
-		r.add(new BigDecimal(3.0));
-		r.add(new BigDecimal(3.0));
-		r.add(new BigDecimal(3.0));
-		r.add(new BigDecimal(3.0));
-		
+
 		barberRepo.save(barber);
 		barberRepo.save(barber2);
 		clientRepo.save(client1);
@@ -111,9 +89,9 @@ public class CommandLine implements CommandLineRunner {
 		rateRepo.save(rate);
 		rateRepo.save(rate1);
 		rateRepo.save(rate3);
-		barberSV.addBookingToBarber(booking1,barber);
-		
-		barberSV.addBookingToBarber(booking2,barber);
+		barberSV.addBookingToBarber(booking1, barber);
+
+		barberSV.addBookingToBarber(booking2, barber);
 		clientSV.addBookingToClient(booking1, client1);
 		clientSV.addBookingToClient(booking2, client1);
 		haircutSV.addBookingToHaircut(haircut1, booking1);
@@ -123,10 +101,10 @@ public class CommandLine implements CommandLineRunner {
 		bookingSV.findAll().forEach(System.out::println);
 		haircutSV.findAll().forEach(System.out::println);
 		booking1.setBookingRate(rate.getStarRate());
-		Booking booking3= new Booking(LocalDate.now(), LocalTime.now(),true);
+		Booking booking3 = new Booking(LocalDate.now(), LocalTime.now(), true);
 		bookingSV.save(booking3);
 		bookingSV.save(booking4);
-		barberSV.addBookingToBarber(booking4,barber);
+		barberSV.addBookingToBarber(booking4, barber);
 		clientSV.addBookingToClient(booking3, client1);
 		clientSV.findAll().forEach(System.out::println);
 		rateSV.addRateToBooking(rate1, booking1);
