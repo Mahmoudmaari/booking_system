@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,7 +40,7 @@ public class BarberRateController {
 		this.barberSV = barberSV;
 	}
 
-	
+	@CrossOrigin(origins="*")
 	@GetMapping("/BarberRate")
 	public ResponseEntity<List<BarberRate>> getAllRate(){
 		List<BarberRate> rate = rateSV.findAll();
@@ -50,14 +51,14 @@ public class BarberRateController {
 				
 	}
 	
-
+	@CrossOrigin(origins="*")
 	@PostMapping("/BarberRate")
 	public ResponseEntity<BarberRate> create (@Valid @RequestBody BarberRateForm rateForm){
 		BarberRate rate = rateSV.save(new BarberRate(rateForm.getStarRate()));
 		
 		return ResponseEntity.status(HttpStatus.CREATED).body(rate);
 	}
-	
+	@CrossOrigin(origins="*")
 	@PutMapping("/BarberRate/{id}")
 	public ResponseEntity<BigDecimal> cal(@PathVariable int id){
 		
@@ -66,20 +67,10 @@ public class BarberRateController {
 	
 		return ResponseEntity.ok().body(bookingSV.RateCal(barber));
 	}
-	
+	@CrossOrigin(origins="*")
 	@GetMapping("/BarberRate/{id}")
 	public ResponseEntity<BarberRate> findById(@PathVariable int id){
 		return ResponseEntity.ok().body(rateSV.findById(id));		
 	}
 	
-	@PutMapping("/BarberRate/rate/{RID}/{BID}")
-	public ResponseEntity<BarberRate> addRateToBooking(@PathVariable int RID,@PathVariable int BID){
-		BarberRate rate = rateSV.findById(RID);
-		Booking booking = bookingSV.findById(BID);
-		if(rate==null) {
-			ResponseEntity.notFound().build();
-		}
-		rateSV.addRateToBooking(rate, booking);
-		return ResponseEntity.accepted().body(rateSV.save(rate));
-	}
 }

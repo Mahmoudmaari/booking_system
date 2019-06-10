@@ -6,6 +6,7 @@ import java.util.List;
 
 import mahmoud.maari.booking_system.models.Barber;
 import mahmoud.maari.booking_system.models.Booking;
+import mahmoud.maari.booking_system.models.HaircutStyle;
 
 public interface BookingService {
 
@@ -22,6 +23,12 @@ public interface BookingService {
 	List<Booking> findBookingByBarberId(Barber barber);
 
 	BigDecimal RateCal(Barber b);
+
+	Booking addBarberToBooking(Booking booking, Barber barber);
+
+	Booking addHaircutToBooking(Booking booking, HaircutStyle haircut);
+
+	
 
 
 

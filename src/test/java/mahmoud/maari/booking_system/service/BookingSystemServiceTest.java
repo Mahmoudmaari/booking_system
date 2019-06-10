@@ -64,7 +64,7 @@ public class BookingSystemServiceTest {
 		clients.add(client);
 		Barber barber = new Barber("TestBarber", "079-0000000", true);
 
-		HaircutStyle haircut = new HaircutStyle("Test", "test : test", 300);
+		HaircutStyle haircut = new HaircutStyle("Test", "test : test", 300,01,30);
 		BarberRate rate = new BarberRate(new BigDecimal(4.7));
 
 		Booking booking = new Booking(LocalDate.parse("2019-04-04"), LocalTime.parse("15:00:00"), true);
@@ -84,7 +84,8 @@ public class BookingSystemServiceTest {
 
 	@Test
 	public void addBarberToClientTest() {
-		assertTrue(barberSV.addBookingToBarber(booking1, barber1));
+		bookingSV.addBarberToBooking(booking1, barber1);
+		assertEquals(booking1.getBarber(), barber1);
 	}
 
 	@Test
@@ -94,12 +95,13 @@ public class BookingSystemServiceTest {
 
 	@Test
 	public void addHaircutToClientTest() {
-		assertTrue(haircutSV.addBookingToHaircut(haircut1, booking1));
+		bookingSV.addHaircutToBooking(booking1, haircut1);
+		assertEquals(booking1.getHaircutStyle(), haircut1);
 	}
 
 	@Test
 	public void findBarberInBooking() {
-		barberSV.addBookingToBarber(booking1, barber1);
+		bookingSV.addBarberToBooking(booking1, barber1);
 		List<Booking> booking = new ArrayList<>();
 		booking.addAll(bookingSV.findBookingByBarberId(barber1));
 		List<Booking> actual = new ArrayList<>();
@@ -110,15 +112,15 @@ public class BookingSystemServiceTest {
 
 	@Test
 	public void rateCalTest() {
-		Booking booking2 = new Booking(LocalDate.parse("2019-04-04"), LocalTime.parse("15:00:00"), true);
+		Booking booking2 = new Booking(LocalDate.parse("2019-04-04"), LocalTime.parse("17:00:00"), true);
 		BarberRate rate = new BarberRate(new BigDecimal(4));
 		bookingSV.save(booking2);
 		rateSV.save(rate);
-		barberSV.addBookingToBarber(booking2, barber1);
+		bookingSV.addBarberToBooking(booking2, barber1);
 		rateSV.addRateToBooking(rate, booking2);
 		rateSV.addRateToBooking(Rate1, booking1);
 
-		barberSV.addBookingToBarber(booking1, barber1);
+		bookingSV.addBarberToBooking(booking1, barber1);;
 		BigDecimal actual = bookingSV.RateCal(barber1);
 		BigDecimal expected = new BigDecimal(4.35).setScale(1, RoundingMode.DOWN);
 		assertEquals(expected, actual);
@@ -131,12 +133,12 @@ public class BookingSystemServiceTest {
 	}
 	@Test
 	public void RemoveHaieCutFromBooking() {
-		haircutSV.addBookingToHaircut(haircut1, booking1);
+		bookingSV.addHaircutToBooking(booking1, haircut1);
 		assertTrue(haircutSV.RemoveHiarcutFromBooking(haircut1, booking1));
 	}
 	@Test
 	public void RemoveBarberFromBooking() {
-		barberSV.addBookingToBarber(booking1, barber1);
+		bookingSV.addBarberToBooking(booking1, barber1);
 		assertTrue(barberSV.removeBarberFromBooking(booking1, barber1));
 	}
 }

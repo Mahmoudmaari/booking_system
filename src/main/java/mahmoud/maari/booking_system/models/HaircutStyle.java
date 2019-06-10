@@ -13,19 +13,44 @@ public class HaircutStyle {
 	private String haircutType;
 	private String description;
 	private double price;
+	private int cutingHour;
+	private int cutingMinutes;
 
-	public HaircutStyle(String haircutType, String description, double price) {
+
+
+	public HaircutStyle(String haircutType, String description, double price, int cutingHour, int cutingMinutes) {
 		super();
 		this.haircutType = haircutType;
 		this.description = description;
 		this.price = price;
+		this.cutingHour = cutingHour;
+		this.cutingMinutes = cutingMinutes;
 	}
+
+
+
 
 	public HaircutStyle() {
 	}
 
 	
 
+
+	public int getCutingHour() {
+		return cutingHour;
+	}
+
+	public void setCutingHour(int cutingHour) {
+		this.cutingHour = cutingHour;
+	}
+
+	public int getCutingMinutes() {
+		return cutingMinutes;
+	}
+
+	public void setCutingMinutes(int cutingMinutes) {
+		this.cutingMinutes = cutingMinutes;
+	}
 
 	@Override
 	public String toString() {

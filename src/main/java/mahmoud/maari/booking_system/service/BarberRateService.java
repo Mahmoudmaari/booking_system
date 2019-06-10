@@ -17,4 +17,6 @@ public interface BarberRateService {
 
 	boolean addRateToBooking(BarberRate rate, Booking booking);
 
+	
+
 }

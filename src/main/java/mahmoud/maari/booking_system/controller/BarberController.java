@@ -46,16 +46,20 @@ public class BarberController {
 		}
 		
 	}
+	@CrossOrigin(origins="*")
 	@PostMapping("/Barber")
 	public ResponseEntity<Barber> create(@RequestBody BarberForm newBarber){
 		if(newBarber == null) {
 			return ResponseEntity.badRequest().build();
 		}else {
 			
-		Barber barber = barberSV.save(new Barber(newBarber.getName(), newBarber.getPhoneNaumber(),newBarber.isAvailable() ));
+		Barber barber = new Barber(newBarber.getName(), newBarber.getPhoneNaumber(),newBarber.isAvailable() );
+			
+		
 		return ResponseEntity.status(HttpStatus.CREATED).body(barber);
 		}	
 	}
+	@CrossOrigin(origins="*")
 	@GetMapping("/Barber/{id}")
 	public ResponseEntity<Barber> findById(@PathVariable int id ){
 		if(barberSV.findById(id)== null) {
@@ -63,6 +67,7 @@ public class BarberController {
 		}
 	return ResponseEntity.ok().body(barberSV.findById(id));	
 	}
+	@CrossOrigin(origins="*")
 	@PutMapping("/Barber/{id}")
 	public ResponseEntity<Barber> update (@PathVariable int id,@Valid @RequestBody BarberForm newbarber){
 		if(barberSV.findById(id)==null) {
@@ -75,19 +80,7 @@ public class BarberController {
 			return ResponseEntity.accepted().body(barberSV.save(barber));
 		}
 	}
-	@PostMapping("/Barber/{OID}/{BID}")
-	public ResponseEntity<Boolean> add (@PathVariable int OID,@PathVariable int BID ){
-		if(barberSV.findById(BID) == null) {
-			return ResponseEntity.notFound().build();
-		}
-		Barber barber = barberSV.findById(BID);
-		Booking booking = bookingSV.findById(OID);
-		
-		return ResponseEntity.ok(barberSV.addBookingToBarber(booking, barber));
-			
-		
-	}
-
+	@CrossOrigin(origins="*")
 	@PostMapping("/Barber/Remove/{OID}/{BID}")
 	public ResponseEntity<Boolean> remove (@PathVariable int OID,@PathVariable int BID ){
 		if(barberSV.findById(BID) == null) {
@@ -99,6 +92,7 @@ public class BarberController {
 		return ResponseEntity.ok(barberSV.removeBarberFromBooking(booking, barber));	
 		
 	}
+	@CrossOrigin(origins="*")
 	@PutMapping("/Barber/{id}/available")
 	public ResponseEntity<Barber> available(@PathVariable int id ,@Valid @RequestBody BarberForm newBarber){
 		if(barberSV.findById(id)== null) {

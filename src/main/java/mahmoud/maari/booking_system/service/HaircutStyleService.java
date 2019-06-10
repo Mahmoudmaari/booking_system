@@ -17,7 +17,7 @@ public interface HaircutStyleService {
 
 	HaircutStyle save(HaircutStyle haircutStyle);
 
-	boolean addBookingToHaircut(HaircutStyle h, Booking b);
+
 
 	boolean RemoveHiarcutFromBooking(HaircutStyle h, Booking b);
 

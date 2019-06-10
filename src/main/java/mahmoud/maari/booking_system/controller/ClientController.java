@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,7 +32,7 @@ public class ClientController {
 		this.clientSV = clientSV;
 		this.bookingSV = bookingSV;
 	}
-	
+	@CrossOrigin(origins="*")
 	@GetMapping("/ClientC")
 	public ResponseEntity<List<ClientC>> getAll(){
 		List<ClientC> client = clientSV.findAll();
@@ -40,6 +41,7 @@ public class ClientController {
 		}
 		return ResponseEntity.ok(client);
 	}
+	@CrossOrigin(origins="*")
 	@PostMapping("/ClientC")
 	public ResponseEntity<ClientC> create(@RequestBody ClientForm newclient){
 		if(newclient == null) {
@@ -49,6 +51,7 @@ public class ClientController {
 				newclient.getGender(), newclient.getPhoneNumber(), newclient.getEmail(), newclient.getPassword()));
 		return ResponseEntity.status(HttpStatus.CREATED).body(client);
 	}
+	@CrossOrigin(origins="*")
 	@GetMapping("/ClientC/{id}")
 	public ResponseEntity<ClientC> findById(@PathVariable int id){
 		if(clientSV.findById(id)==null) {
@@ -56,6 +59,7 @@ public class ClientController {
 		}
 		return ResponseEntity.ok(clientSV.findById(id));
 	}
+	@CrossOrigin(origins="*")
 	@PutMapping("/ClientC/{id}")
 	public ResponseEntity<ClientC> update(@PathVariable int id, @Valid @RequestBody ClientForm newclient){
 		if(clientSV.findById(id)==null) {
@@ -75,6 +79,7 @@ public class ClientController {
 		}
 		
 	}
+	@CrossOrigin(origins="*")
 	@PutMapping("/ClientC/{id}/password")
 	public ResponseEntity<ClientC> changePassword(@PathVariable int id,@Valid @RequestBody ClientForm newclient){
 		ClientC client = clientSV.findById(id);
@@ -84,6 +89,7 @@ public class ClientController {
 		client.setPassword(newclient.getPassword());
 		return ResponseEntity.accepted().body(client);
 	}
+	@CrossOrigin(origins="*")
 	@PostMapping("/ClientC/{BID}/{CID}")
 	public ResponseEntity<Boolean> add(@PathVariable int BID,@PathVariable int CID){
 		if(bookingSV.findById(BID)==null) {
@@ -93,6 +99,7 @@ public class ClientController {
 		Booking booking = bookingSV.findById(BID);
 		return ResponseEntity.ok(clientSV.addBookingToClient(booking, client));
 	}
+	@CrossOrigin(origins="*")
 	@PostMapping("/ClientC/Remove/{BID}/{CID}")
 	public ResponseEntity<Boolean> remove (@PathVariable int BID,@PathVariable int CID){
 		if(bookingSV.findById(BID)==null) {

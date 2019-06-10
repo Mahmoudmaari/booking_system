@@ -17,9 +17,6 @@ public interface BarberService {
 
 	Barber save(Barber barber);
 
-
-	boolean addBookingToBarber(Booking o, Barber b);
-
 	boolean removeBarberFromBooking(Booking o, Barber b);
 
 	

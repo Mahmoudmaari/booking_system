@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,7 +32,7 @@ public class HaircutController {
 		this.hairStyleSV = hairStyleSV;
 		this.bookingSV = bookingSV;
 	}
-	
+	@CrossOrigin(origins="*")
 	@GetMapping("/HaircutStyle")
 	public ResponseEntity<List<HaircutStyle>> getAllHaircut(){
 		List<HaircutStyle> haircut = hairStyleSV.findAll();
@@ -40,15 +41,19 @@ public class HaircutController {
 		}
 		return ResponseEntity.ok(haircut);
 	}
+	@CrossOrigin(origins="*")
 	@PostMapping("/HaircutStyle")
 	public ResponseEntity<HaircutStyle> create (@RequestBody HaircutForm newHaircut){
 		if(newHaircut == null) {
 			ResponseEntity.badRequest().build();
 		}
-		HaircutStyle haircut = hairStyleSV.save(new HaircutStyle(newHaircut.getHaircutType(), newHaircut.getDescription(), newHaircut.getPrice()));
+		HaircutStyle haircut = hairStyleSV.save(new HaircutStyle(newHaircut.getHaircutType()
+				, newHaircut.getDescription(), newHaircut.getPrice(),newHaircut.getCutingHour()
+				,newHaircut.getCutingMinutes()));
 		return ResponseEntity.accepted().body(haircut);
 		
 	}
+	@CrossOrigin(origins="*")
 	@GetMapping("/HaircutStyle/{id}")
 	public ResponseEntity<HaircutStyle> findByid(@PathVariable int id){
 		if(hairStyleSV.findById(id)==null) {
@@ -58,6 +63,7 @@ public class HaircutController {
 		return ResponseEntity.ok(haircut);
 		
 	}
+	@CrossOrigin(origins="*")
 	@PutMapping("/HaircutStyle/{id}")
 	public ResponseEntity<HaircutStyle> update(@PathVariable int id,@Valid @RequestBody HaircutForm newhaircut){
 		if(hairStyleSV.findById(id)==null) {
@@ -69,15 +75,7 @@ public class HaircutController {
 		haircut.setPrice(newhaircut.getPrice());
 		return ResponseEntity.accepted().body(haircut);
 	}
-	@PostMapping("/HaircutStyle/{BID}/{HID}")
-	public ResponseEntity<Boolean> add (@PathVariable int HID,@PathVariable int BID){
-		if (bookingSV.findById(BID)==null) {
-			ResponseEntity.notFound().build();
-		}
-		HaircutStyle haircut= hairStyleSV.findById(HID);
-		Booking booking = bookingSV.findById(BID);
-		return ResponseEntity.ok(hairStyleSV.addBookingToHaircut(haircut, booking));
-	}
+	@CrossOrigin(origins="*")
 	@PostMapping("/HaircutStyle/Remove/{BID}/{HID}")
 	public ResponseEntity<Boolean> Remove(@PathVariable int HID,@PathVariable int BID){
 		if (bookingSV.findById(BID)==null) {

@@ -6,7 +6,22 @@ public class HaircutForm {
 	private String haircutType;
 	private String description;
 	private double price;
+	private int cutingHour;
+	private int cutingMinutes;
 	
+	
+	public int getCutingHour() {
+		return cutingHour;
+	}
+	public void setCutingHour(int cutingHour) {
+		this.cutingHour = cutingHour;
+	}
+	public int getCutingMinutes() {
+		return cutingMinutes;
+	}
+	public void setCutingMinutes(int cutingMinutes) {
+		this.cutingMinutes = cutingMinutes;
+	}
 	public String getHaircutType() {
 		return haircutType;
 	}

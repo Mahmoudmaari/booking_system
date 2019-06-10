@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import mahmoud.maari.booking_system.models.Barber;
 import mahmoud.maari.booking_system.models.Booking;
 import mahmoud.maari.booking_system.repository.BarberRepo;
+import mahmoud.maari.booking_system.repository.BookingRepo;
+
 
 @Service
 @Transactional
@@ -18,11 +20,13 @@ public class BarberServiceImpl implements BarberService {
 
 	
 	private BarberRepo barberRepo;
+	private BookingRepo bookingRepo;
 
 	@Autowired
 	public BarberServiceImpl(BarberRepo barberRepo) {
 		super();
 		this.barberRepo = barberRepo;
+		
 	}
 	
 	/* (non-Javadoc)
@@ -68,16 +72,10 @@ public class BarberServiceImpl implements BarberService {
 		return barberRepo.save(barber);
 	}
 	
-	@Override
-	public boolean addBookingToBarber(Booking o,Barber b) {
-		List<Barber> barber = new ArrayList<>();
-		if(findById(b.getId()).equals(o.getBarber())) {
-			throw new IllegalArgumentException();
-		}
-		o.setBarber(b);
-		return barber.add(b);
-	}
 	
+	
+	
+
 	@Override
 	public boolean removeBarberFromBooking (Booking o,Barber b ) {
 		List<Barber> barber = new ArrayList<>();

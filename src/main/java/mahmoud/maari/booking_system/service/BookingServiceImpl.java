@@ -3,16 +3,23 @@ package mahmoud.maari.booking_system.service;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.OverridesAttribute;
+import javax.validation.valueextraction.Unwrapping.Skip;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import mahmoud.maari.booking_system.models.Barber;
 import mahmoud.maari.booking_system.models.Booking;
+import mahmoud.maari.booking_system.models.HaircutStyle;
 import mahmoud.maari.booking_system.repository.BookingRepo;
 
 @Service
@@ -95,6 +102,47 @@ public class BookingServiceImpl implements BookingService {
 		
 		
 	}
-	
+
+	@Override
+	public Booking addBarberToBooking(Booking booking , Barber barber) {
+		
+		List<Booking> booking1 = bookingRepo.findBybookingDate(booking.getBookingDate());
+		
+		if(booking.getBarber()==null) {
+			booking.setBarber(barber);
+		}
+		booking1.removeIf(b-> b.getId() == booking.getId());
+		booking1.removeIf(b-> b.getBarber() == null );
+		booking1.forEach(b-> {
+			if(b.getBookingTime().equals(booking.getBookingTime()) && b.getBarber().equals(booking.getBarber())) {
+				throw new IllegalArgumentException();
+			}
+		});
+		return booking;
+	}
+	LocalTime beforeTime,afterTime;
+	@Override
+	public Booking addHaircutToBooking(Booking booking,HaircutStyle haircut) {
+		List<Booking> booking1 = bookingRepo.findBybookingDate(booking.getBookingDate());
+		
+		
+		if(booking.getHaircutStyle() == null) {
+			booking.setHaircutStyle(haircut);
+		}
+		
+		beforeTime=booking.getBookingTime().plus(haircut.getCutingHour(),
+				ChronoUnit.HOURS).plus(haircut.getCutingMinutes(),ChronoUnit.MINUTES);
+		afterTime= booking.getBookingTime().minus(haircut.getCutingHour(),
+				ChronoUnit.HOURS).minus(haircut.getCutingMinutes(),ChronoUnit.MINUTES);
+		booking1.removeIf(b-> b.getId() == booking.getId());
+		booking1.removeIf(b-> b.getHaircutStyle() == null);
+		booking1.forEach(b->{
+			if(b.getBookingTime().isBefore(beforeTime)&&
+					b.getBookingTime().isAfter(afterTime)) {
+				throw new IllegalArgumentException();
+			}
+		});
+		return booking;
+	}
 	
 }

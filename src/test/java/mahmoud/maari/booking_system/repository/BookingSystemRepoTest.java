@@ -60,7 +60,7 @@ public class BookingSystemRepoTest {
 		clients.add(client);
 		Barber barber = new Barber("TestBarber", "079-0000000",true);
 
-		HaircutStyle haircut = new HaircutStyle("Test", "test : test", 300);
+		HaircutStyle haircut = new HaircutStyle("Test", "test : test", 300,01,30);
 		BarberRate rate = new BarberRate(new BigDecimal(4.7));
 		
 		Booking booking = new Booking(LocalDate.parse("2019-04-04"), LocalTime.parse("15:00:00"),true);

@@ -62,15 +62,7 @@ public class HaircutStyleServiceImpl implements HaircutStyleService {
 	public HaircutStyle save(HaircutStyle haircutStyle) {
 		return haircutRepo.save(haircutStyle);
 	}
-	@Override
-	public boolean addBookingToHaircut(HaircutStyle h,Booking b) {
-		List<HaircutStyle> haircut = new ArrayList<>();
-		if(findById(h.getId()).equals(b.getHaircutStyle())){
-			throw new IllegalArgumentException();
-		}
-		b.setHaircutStyle(h);;
-		return haircut.add(h);
-	}
+
 	@Override
 	public boolean RemoveHiarcutFromBooking(HaircutStyle h,Booking b) {
 		List<HaircutStyle> haircut = new ArrayList<>();
